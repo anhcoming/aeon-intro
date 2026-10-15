@@ -1,0 +1,71 @@
+<!doctype html><html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mock hero v3</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,sans-serif;background:#e9edf3;color:#0c1422}
+.tag{font:700 13px system-ui;padding:14px 20px;background:#fff;letter-spacing:.04em;margin-top:28px}
+.note{background:#fff;padding:14px 20px;font-size:14px;line-height:1.6;color:#334}
+.eb{font:700 12px system-ui;letter-spacing:.16em;text-transform:uppercase;color:#2f6fe4}
+h1{font-size:46px;line-height:1.15;margin:12px 0 14px;font-weight:800}
+p.l{font-size:18px;line-height:1.55;margin:0 0 24px;color:#4a586b}
+.btn{display:inline-block;padding:13px 22px;border-radius:10px;font-weight:700;background:#2f6fe4;color:#fff;text-decoration:none}
+.lnk{margin-left:20px;font-weight:600;color:#2f6fe4;text-decoration:underline;text-underline-offset:4px}
+.ipad{background:#0b111c;border-radius:30px;padding:11px;box-shadow:0 40px 80px -28px #0008,0 0 0 2px #2f3a4e inset}
+.ipad img{display:block;width:100%;border-radius:19px}
+.dots{display:flex;gap:6px}.dots i{width:8px;height:8px;border-radius:4px;background:#b7c0cf}.dots i.on{width:24px;background:#2f6fe4}
+/* C: bleed */
+.C{background:#0c1422;color:#fff;overflow:hidden;padding:64px 0 56px}
+.C .row{max-width:1360px;margin:0 auto;padding-left:24px;display:grid;grid-template-columns:420px 1fr;gap:40px;align-items:center}
+.C h1{color:#fff}.C p.l{color:#c3d3e4}.C .btn{background:#fff;color:#0c1422}.C .lnk{color:#cfe0f1}.C .eb{color:#8fc8f4}
+.C .ipad{width:1000px;max-width:none;transform:perspective(1800px) rotateY(-6deg);transform-origin:left center}
+.C .cap{margin-top:20px;font-weight:700;display:flex;gap:14px;align-items:center}.C .dots i{background:#ffffff40}.C .dots i.on{background:#8fc8f4}
+/* D: light */
+.D{background:#f6f7f9;padding:56px 24px 44px;text-align:center}
+.D .in{max-width:1080px;margin:0 auto}.D h1{max-width:14em;margin-inline:auto}.D p.l{max-width:32em;margin-inline:auto}
+.D .ipad{margin-top:36px}
+.D .tabs{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:18px}
+.D .tabs span{padding:9px 16px;border-radius:999px;background:#fff;border:1px solid #d9dfe8;font-weight:600;font-size:14px}
+.D .tabs span.on{background:#e4eeff;border-color:#2f6fe4;color:#2f6fe4}
+/* E: tour */
+.E{background:#fff;padding:48px 24px}
+.E .in{max-width:1360px;margin:0 auto}
+.E .top{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:28px}
+.E h1{font-size:40px;margin:8px 0 0;max-width:15em}
+.E .grid{display:grid;grid-template-columns:260px 1fr;gap:28px}
+.E .list{display:flex;flex-direction:column;gap:6px}
+.E .list div{padding:13px 16px;border-radius:12px;font-weight:600;color:#4a586b;border:1px solid transparent}
+.E .list div small{display:block;font-weight:400;font-size:13px;color:#7a8799;margin-top:3px}
+.E .list div.on{background:#e4eeff;border-color:#bcd2fb;color:#0c1422}
+</style>
+
+<div class="tag">PHƯƠNG ÁN C — iPad tràn ra mép phải, hơi nghiêng, nền tối (to nhất)</div>
+<section class="C"><div class="row">
+ <div><div class="eb">Quản lý fit-out gian hàng AEON Mall</div><h1>Hồ sơ đủ ngay ở bước phát sinh.</h1>
+ <p class="l">7 giai đoạn, 36 loại form, một hệ thống.</p><a class="btn" href="#">Xem tính năng</a><a class="lnk" href="#">Tính chi phí</a></div>
+ <div><div class="ipad"><img src="shots/s02-gian-hang.jpg"></div>
+ <div class="cap">Gian hàng — biết ngay gian nào đang trễ <span class="dots"><i></i><i class="on"></i><i></i><i></i><i></i></span></div></div>
+</div></section>
+<div class="note">iPad rộng ~1000px, bị cắt nhẹ ở mép phải nên cảm giác "màn hình thật to". Chữ bên trái gọn, 3 thứ: nhãn, tiêu đề, 1 câu. Hơi mất nền ảnh AEON.</div>
+
+<div class="tag">PHƯƠNG ÁN D — Nền sáng, tiêu đề giữa, iPad rộng 1080px (không còn màu đen)</div>
+<section class="D"><div class="in">
+ <div class="eb">Quản lý fit-out gian hàng AEON Mall</div><h1>Hồ sơ đủ ngay ở bước phát sinh.</h1>
+ <p class="l">7 giai đoạn, 36 loại form, một hệ thống. Mỗi giai đoạn khoá lại cho đến khi đủ hồ sơ.</p>
+ <a class="btn" href="#">Xem tính năng</a><a class="lnk" href="#">Tính chi phí</a>
+ <div class="ipad"><img src="shots/s01-viec-cua-toi.jpg"></div>
+ <div class="tabs"><span class="on">Việc của tôi</span><span>Gian hàng</span><span>Hồ sơ</span><span>Tiến độ</span><span>Bản đồ</span></div>
+</div></section>
+<div class="note">Theo ý bạn trước đó là hạn chế màu đen: hero sáng, chỉ khung iPad tối. Chú thích thành các nút bấm chuyển màn hình (to, chạm được trên iPad) thay cho dãy chấm nhỏ. iPad to nhất khi xem đủ cả chiều ngang.</div>
+
+<div class="tag">PHƯƠNG ÁN E — Tour: danh sách màn hình bên trái, iPad to bên phải</div>
+<section class="E"><div class="in">
+ <div class="top"><div><div class="eb">Quản lý fit-out gian hàng AEON Mall</div><h1>Hồ sơ đủ ngay ở bước phát sinh.</h1></div>
+ <div><a class="btn" href="#">Xem tính năng</a><a class="lnk" href="#">Tính chi phí</a></div></div>
+ <div class="grid"><div class="list">
+  <div>Việc của tôi<small>Mọi việc cần xử lý, một danh sách</small></div>
+  <div class="on">Gian hàng<small>Biết ngay gian nào đang trễ</small></div>
+  <div>Hồ sơ<small>Trạng thái duyệt từng biểu mẫu</small></div>
+  <div>Tiến độ<small>Kế hoạch gốc so với thực tế</small></div>
+  <div>Bản đồ<small>Lô tô màu theo giai đoạn</small></div></div>
+  <div class="ipad"><img src="shots/s02-gian-hang.jpg"></div></div>
+</div></section>
+<div class="note">Người xem tự chọn màn hình muốn xem, mỗi mục có 1 dòng giải thích ngay cạnh, không cần đọc chú thích dưới ảnh. Tiêu đề nằm ngang để dành chiều cao cho iPad. Ảnh hơi nhỏ hơn C/D (~1000px).</div>

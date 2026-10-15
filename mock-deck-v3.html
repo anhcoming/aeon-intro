@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mock v3 · Tính năng — hai hướng mới</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+/* MOCK tĩnh (có vài tương tác nhỏ) — 2 hướng thay bộ thẻ nhiều màu: phẳng, nhẹ, thấy hết 7 việc, mỗi hướng một "điểm hay". */
+:root{--paper:#f4f6f9;--card:#fff;--ink:#0f172a;--body:#475569;--muted:#64748b;--line:#e2e8f0;--accent:#2563eb;--soft:#dbeafe;--f:"Plus Jakarta Sans",system-ui,sans-serif;
+ --b:#2563eb;--bs:#eff6ff;--g:#059669;--gs:#ecfdf5;--o:#ea580c;--os:#fff7ed;--v:#7c3aed;--vs:#f5f3ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--body);font:16px/1.6 var(--f);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+h2,h3,h4{color:var(--ink);margin:0;line-height:1.25}
+.top{background:#fff;border-bottom:1px solid var(--line);padding:14px 0;font-size:13px;color:var(--muted)}
+.sec{padding:64px 0}.sec.alt{background:#fff;border-block:1px solid var(--line)}
+.opt{display:inline-flex;background:var(--soft);color:#1d4ed8;font-weight:800;font-size:13px;padding:4px 14px;border-radius:99px;margin-bottom:12px}
+.why{font-size:15px;max-width:54em;margin:8px 0 28px}.why b{color:var(--ink)}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.hd{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+.hd h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;margin-top:8px;max-width:17em}
+.ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex:none}
+.ic svg{width:20px;height:20px}
+.c-b .ic{background:var(--bs);color:var(--b)}.c-g .ic{background:var(--gs);color:var(--g)}.c-o .ic{background:var(--os);color:var(--o)}.c-v .ic{background:var(--vs);color:var(--v)}
+.metric{font-weight:800;color:var(--ink);font-size:15px;white-space:nowrap}
+.metric small{font-weight:600;color:var(--muted);font-size:12px;margin-left:4px}
+
+/* ===== A: lưới 4+3 + chọn vai ===== */
+.roles{display:flex;gap:8px;flex-wrap:wrap}
+.roles button{font:700 14px var(--f);border:1px solid var(--line);background:#fff;color:var(--body);border-radius:999px;height:42px;padding:0 18px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.roles button .av{width:22px;height:22px;border-radius:50%;background:#e2e8f0;display:grid;place-items:center;font-size:10px;font-weight:800;color:var(--ink)}
+.roles button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.roles button[aria-pressed=true] .av{background:#fff}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.fc{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:10px;min-height:196px;transition:transform .25s,box-shadow .25s,opacity .3s;position:relative}
+.fc:hover{transform:translateY(-3px);box-shadow:0 16px 36px -22px rgba(15,23,42,.35)}
+.fc h3{font-size:16.5px;font-weight:800}
+.fc p{margin:0;font-size:13.5px;line-height:1.5}
+.fc .ft{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:6px;border-top:1px dashed var(--line)}
+.fc .who{display:flex;gap:4px}.fc .who i{width:22px;height:22px;border-radius:50%;background:#e2e8f0;display:grid;place-items:center;font-size:9.5px;font-weight:800;color:var(--ink);font-style:normal;border:2px solid #fff;margin-left:-6px}.fc .who i:first-child{margin-left:0}
+.grid.has-filter .fc:not(.on){opacity:.35}
+.grid.has-filter .fc.on{box-shadow:0 0 0 2px var(--accent),0 16px 36px -22px rgba(37,99,235,.5)}
+.grid .fc:nth-child(5){grid-column:1 / span 1}
+.grid .fc.wide{grid-column:span 2}
+.a-hint{font-size:13px;color:var(--muted);margin-top:14px}
+
+/* ===== B: một ngày với Retail PM ===== */
+.day{position:relative;border:1px solid var(--line);background:#fff;border-radius:22px;overflow:hidden}
+.day-row{display:grid;grid-template-columns:84px 44px 40px minmax(0,1fr) auto;gap:14px;align-items:center;padding:16px 22px;border-top:1px solid var(--line);position:relative;transition:background .3s}
+.day-row:first-child{border-top:0}
+.day-row .t{font:800 15px var(--f);color:var(--ink);font-variant-numeric:tabular-nums}
+.day-row .t small{display:block;font-size:11px;font-weight:600;color:var(--muted)}
+.day-row .av{width:34px;height:34px;border-radius:50%;background:#e2e8f0;display:grid;place-items:center;font-size:11px;font-weight:800;color:var(--ink);justify-self:center;position:relative;z-index:1}
+.day-row .tx h3{font-size:16px;font-weight:800}.day-row .tx p{margin:2px 0 0;font-size:13.5px}
+.day-row.now{background:var(--bs)}
+.day-row.now::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent)}
+.day-row.now .t::after{content:"đang xem";display:inline-block;font-size:10px;font-weight:800;color:#fff;background:var(--accent);border-radius:99px;padding:1px 7px;margin-left:6px;vertical-align:middle}
+.day::after{content:"";position:absolute;left:calc(22px + 84px + 14px + 22px);top:34px;bottom:34px;width:2px;background:var(--line);z-index:0}
+.day-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 22px;background:#f8fafc;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.day-foot b{color:var(--ink)}
+.b-ctl{display:flex;gap:8px}
+.b-ctl button{font:700 13px var(--f);border:1px solid var(--line);background:#fff;border-radius:999px;height:36px;padding:0 14px;cursor:pointer;color:var(--ink)}
+.b-ctl button:hover{border-color:var(--accent);color:var(--accent)}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.grid .fc.wide{grid-column:span 2}.day-row{grid-template-columns:70px 34px 36px minmax(0,1fr);gap:10px}.day-row .metric{grid-column:4;justify-self:start}.day::after{left:calc(22px + 70px + 10px + 17px)}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap"><b style="color:var(--ink)">MOCK v3</b> · Bộ "Tính năng" · 2 hướng mới: phẳng, nhẹ, thấy hết 7 việc trong một màn, không cuộn ngang · A và B đều bấm được</div></div>
+
+<!-- ============ A ============ -->
+<section class="sec">
+  <div class="wrap">
+    <span class="opt">Phương án A · Lưới 7 việc + "Bạn là ai?"</span>
+    <div class="hd">
+      <div><div class="eyebrow">Tính năng</div><h2>Bảy việc hệ thống làm thay bạn.</h2></div>
+      <div class="roles" id="roles">
+        <button type="button" aria-pressed="true" data-r="all">Tất cả</button>
+        <button type="button" aria-pressed="false" data-r="tc"><span class="av">TC</span>Điều phối</button>
+        <button type="button" aria-pressed="false" data-r="pm"><span class="av">PM</span>Quản lý</button>
+        <button type="button" aria-pressed="false" data-r="ad"><span class="av">AD</span>Admin</button>
+        <button type="button" aria-pressed="false" data-r="kh"><span class="av">KH</span>Khách thuê</button>
+      </div>
+    </div>
+    <p class="why"><b>Điểm hay:</b> hàng nút "Bạn là ai?" ở góc phải. Khách Nhật bấm "Quản lý", các thẻ dành cho PM/GM sáng lên, thẻ khác mờ đi — họ thấy ngay phần nào là của mình, không phải đọc hết bảy thẻ. Thẻ phẳng, chữ ít, chỉ còn icon màu nhạt, một câu, một con số và dãy avatar vai ở chân. Thấy trọn 7 thẻ trong một màn, không cuộn ngang.</p>
+    <div class="grid" id="grid">
+      <article class="fc c-b" data-r="tc pm kh"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div><h3>Đăng nhập là biết hôm nay làm gì</h3><p>Mỗi vai một danh sách việc xếp theo hạn, bấm một nút là xử lý.</p><div class="ft"><span class="metric">14<small>vai</small></span><span class="who"><i>TC</i><i>PM</i><i>KH</i></span></div></article>
+      <article class="fc c-b" data-r="tc pm"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg></div><h3>Sắp đến hạn thì báo, trễ thì nhắc khách</h3><p>Trễ 3 ngày lên TC Leader, 7 ngày lên PM. Tự động.</p><div class="ft"><span class="metric">3 · 7<small>ngày</small></span><span class="who"><i>TC</i><i>PM</i></span></div></article>
+      <article class="fc c-g" data-r="tc kh"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></div><h3>Ký trực tiếp trên web</h3><p>Điền PDF và ký tay ngay trên màn hình, nhiều người ký song song.</p><div class="ft"><span class="metric">0<small>tờ giấy</small></span><span class="who"><i>KH</i><i>TC</i></span></div></article>
+      <article class="fc c-g" data-r="tc"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div><h3>Gửi email ngay trong hệ thống</h3><p>Mẫu song ngữ, tự CC đúng người, đính tài liệu bằng link tải.</p><div class="ft"><span class="metric">1<small>màn hình</small></span><span class="who"><i>TC</i></span></div></article>
+      <article class="fc c-o" data-r="tc pm"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></div><h3>Ảnh tự có mã lô và ngày giờ</h3><p>Chụp bằng iPad, dấu in thẳng lên ảnh, vào nhật ký trong ngày.</p><div class="ft"><span class="metric">≥15<small>ảnh/ngày</small></span><span class="who"><i>TC</i><i>PM</i></span></div></article>
+      <article class="fc c-o" data-r="ad"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><h3>Lô tự động từ PDF mặt bằng</h3><p>Không vẽ thủ công, thuật toán nhận diện lô một tầng trong vài giây.</p><div class="ft"><span class="metric">7–10<small>giây</small></span><span class="who"><i>AD</i></span></div></article>
+      <article class="fc c-v wide" data-r="pm"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg></div><h3>PM, GM, TC Leader nắm cả dự án trên một màn hình</h3><p>Dự báo khai trương 5 mức rủi ro, việc trễ, hồ sơ nội bộ đang giữ — không cần hỏi từng TC.</p><div class="ft"><span class="metric">5<small>mức rủi ro</small></span><span class="who"><i>PM</i><i>GM</i><i>TL</i></span></div></article>
+    </div>
+    <p class="a-hint">Bấm thử một vai ở góc phải để xem hiệu ứng. Thẻ cuối rộng gấp đôi để lấp hàng 3 ô cho đủ hàng.</p>
+  </div>
+</section>
+
+<!-- ============ B ============ -->
+<section class="sec alt">
+  <div class="wrap">
+    <span class="opt">Phương án B · Một ngày với Retail PM</span>
+    <div class="hd">
+      <div><div class="eyebrow">Tính năng</div><h2>Một ngày ở công trường, hệ thống làm thay bảy việc.</h2></div>
+      <div class="b-ctl"><button type="button" id="dprev">← Sớm hơn</button><button type="button" id="dnext">Muộn hơn →</button></div>
+    </div>
+    <p class="why"><b>Điểm hay:</b> không liệt kê tính năng mà kể một ngày làm việc theo giờ, từ 08:00 đăng nhập đến 17:00 PM xem tổng quan. Mỗi dòng là một thời điểm, có người làm (avatar vai) và việc hệ thống đỡ cho họ. Người xem đọc như một lịch làm việc, dễ nhớ, và tự thấy sản phẩm bao trọn cả ngày của cả đội. Dòng "đang xem" trượt dần theo khi cuộn trang (trên trang thật), hoặc bấm hai nút để đi trước/sau. Rất gọn: 7 dòng ≈ 560px.</p>
+    <div class="day" id="day">
+      <div class="day-row c-b"><div class="t">08:00<small>Sáng</small></div><div class="av">TC</div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div><div class="tx"><h3>Đăng nhập là biết hôm nay làm gì</h3><p>Danh sách việc riêng, xếp theo hạn, bấm một nút là xử lý.</p></div><span class="metric">14<small>vai</small></span></div>
+      <div class="day-row now c-b"><div class="t">09:15</div><div class="av" style="background:var(--bs);color:var(--b)">⚙</div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg></div><div class="tx"><h3>Hệ thống tự nhắc khách nộp Form 5C, 6A</h3><p>Trễ 3 ngày lên TC Leader, 7 ngày lên PM — không ai phải nhớ.</p></div><span class="metric">3 · 7<small>ngày</small></span></div>
+      <div class="day-row c-g"><div class="t">10:30</div><div class="av">KH</div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></div><div class="tx"><h3>Khách ký Form 9A ngay trên iPad</h3><p>Điền thẳng vào PDF, ký tay, nộp luôn. Không in, không scan.</p></div><span class="metric">0<small>tờ giấy</small></span></div>
+      <div class="day-row c-g"><div class="t">11:00</div><div class="av">TC</div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div><div class="tx"><h3>Gửi email giới thiệu cho khách mới</h3><p>Mẫu song ngữ có sẵn, tự CC, đính tài liệu bằng link tải 30 ngày.</p></div><span class="metric">1<small>màn hình</small></span></div>
+      <div class="day-row c-o"><div class="t">14:00<small>Chiều</small></div><div class="av">TC</div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></div><div class="tx"><h3>Chụp ảnh hiện trường lô T121</h3><p>Ảnh tự có mã lô, ngày giờ; đủ 15 ảnh là nộp được báo cáo ngày.</p></div><span class="metric">≥15<small>ảnh</small></span></div>
+      <div class="day-row c-o"><div class="t">15:30</div><div class="av">AD</div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><div class="tx"><h3>Admin tải PDF mặt bằng tầng 2</h3><p>Thuật toán nhận diện 34 lô trong vài giây, không vẽ tay.</p></div><span class="metric">7–10<small>giây</small></span></div>
+      <div class="day-row c-v"><div class="t">17:00<small>Cuối ngày</small></div><div class="av">PM</div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg></div><div class="tx"><h3>PM xem tổng quan cả dự án</h3><p>Dự báo khai trương 5 mức rủi ro, việc trễ, hồ sơ nội bộ đang giữ.</p></div><span class="metric">5<small>mức rủi ro</small></span></div>
+      <div class="day-foot"><span><b>7 việc</b> · 4 vai · không ai phải đi hỏi, đi đòi, đi gom hồ sơ</span><span>Giờ và tên lô là ví dụ</span></div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* A: role filter */
+var rb=document.querySelectorAll("#roles button"),grid=document.getElementById("grid"),cards=grid.querySelectorAll(".fc");
+rb.forEach(function(b){b.addEventListener("click",function(){rb.forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});var r=b.getAttribute("data-r");grid.classList.toggle("has-filter",r!=="all");cards.forEach(function(c){c.classList.toggle("on",r!=="all"&&c.getAttribute("data-r").split(" ").indexOf(r)>=0)})})});
+/* B: now marker */
+var rows=document.querySelectorAll("#day .day-row"),cur=1;function setNow(i){cur=Math.max(0,Math.min(rows.length-1,i));rows.forEach(function(r,k){r.classList.toggle("now",k===cur)})}
+document.getElementById("dprev").onclick=function(){setNow(cur-1)};document.getElementById("dnext").onclick=function(){setNow(cur+1)};
+</script>
+</body>
+</html>

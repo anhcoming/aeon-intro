@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mock · Retail PM hướng về người dùng</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap">
+<style>
+/* MOCK TĨNH để duyệt hướng: kể theo từng người dùng. Nền sáng, 1 màu nhấn xanh, "sân khấu" tối cho giao diện app. */
+:root{--paper:#f6f7f9;--card:#fff;--ink:#0f172a;--body:#3a4456;--muted:#6b7588;--line:#e3e7ee;--accent:#0b5fa5;--soft:#e6f0fa;--night:#0c1422;--ok:#0f8a5f;--ok-bg:#ddf3ea;--warn-bg:#fdf1d8;--warn:#b7791f;--bad-bg:#fde2e2;--bad:#b91c1c;--f:"Be Vietnam Pro","Segoe UI",Roboto,Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--body);font:16px/1.7 var(--f);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px}
+h1,h2,h3{color:var(--ink);margin:0;line-height:1.25;text-wrap:balance}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.top{position:sticky;top:0;z-index:5;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;min-height:58px}
+.brand{font-weight:800;color:var(--ink);font-size:18px}.brand b{color:var(--accent)}
+.note{font-size:12px;color:var(--muted)}
+.pill{display:inline-block;background:var(--soft);color:var(--accent);font-weight:700;font-size:12px;padding:3px 10px;border-radius:99px}
+section{padding-block:80px}
+.white{background:var(--card);border-block:1px solid var(--line)}
+
+/* hero */
+.hero h1{font-size:clamp(30px,5vw,54px);font-weight:800;margin:12px 0 16px;max-width:16em}
+.hero p.lead{font-size:clamp(16px,2vw,19px);max-width:40em;margin:0 0 36px}
+.pick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.pick a{display:block;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;color:inherit;transition:border-color .2s,transform .2s,box-shadow .2s}
+.pick a:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 14px 28px -18px rgba(11,95,165,.5)}
+.pick b{display:block;color:var(--ink);font-size:18px;margin:8px 0 4px}
+.pick span{font-size:14px;color:var(--body);display:block}
+.av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;font-size:15px}
+.a1{background:#2563eb}.a2{background:#7c3aed}.a3{background:#0f766e}.a4{background:#c2410c}
+
+/* role tabs (CSS only) */
+.tabs input{position:absolute;opacity:0;pointer-events:none}
+.tabbar{display:flex;gap:8px;flex-wrap:wrap;margin:28px 0 28px}
+.tabbar label{cursor:pointer;border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:9px 18px;font-weight:700;font-size:14px;color:var(--ink);min-height:44px;display:inline-flex;align-items:center}
+#t1:checked~.tabbar [for=t1],#t2:checked~.tabbar [for=t2],#t3:checked~.tabbar [for=t3],#t4:checked~.tabbar [for=t4]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.panel{display:none;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:44px;align-items:start}
+#t1:checked~.panels .p1,#t2:checked~.panels .p2,#t3:checked~.panels .p3,#t4:checked~.panels .p4{display:grid}
+.who{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.who b{display:block;color:var(--ink);font-size:20px;line-height:1.2}.who span{font-size:14px;color:var(--muted)}
+.promise{font-size:clamp(22px,2.8vw,30px);font-weight:800;color:var(--ink);line-height:1.3;margin:0 0 24px}
+.day{list-style:none;margin:0;padding:0;position:relative}
+.day::before{content:"";position:absolute;left:41px;top:10px;bottom:10px;width:2px;background:var(--line)}
+.day li{display:grid;grid-template-columns:42px 14px minmax(0,1fr);gap:14px;padding:10px 0;align-items:start;position:relative}
+.day time{font:700 13px var(--f);color:var(--accent);padding-top:3px;font-variant-numeric:tabular-nums}
+.day i{width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--paper);margin-top:8px;position:relative;z-index:1}
+.white .day i{box-shadow:0 0 0 4px var(--card)}
+.day b{display:block;color:var(--ink);font-size:15px}
+.day span{font-size:14px;color:var(--body)}
+.less{margin-top:24px;border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:#fafbfc}
+.less h4{margin:0 0 8px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.less ul{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:14px}
+.less li{padding-left:22px;position:relative;color:var(--ink)}
+.less li::before{content:"✕";position:absolute;left:0;color:#94a3b8;font-weight:800;font-size:12px;top:1px}
+
+/* stage with app snippet */
+.stage{background:var(--night);border-radius:22px;padding:22px;position:sticky;top:84px}
+.stage .cap{color:#8da2bd;font-size:12px;margin:0 0 12px}
+.app{background:#fff;border-radius:14px;padding:16px;color:var(--ink);font-size:13px}
+.app h5{margin:0 0 10px;font-size:14px}
+.lot{display:flex;align-items:center;gap:8px;padding:8px 10px;background:#f7f9fb;border-radius:8px;margin-top:10px}
+.chip{border:1.5px solid #2563eb;border-radius:7px;padding:1px 7px;font:800 11px ui-monospace,Menlo,monospace;color:#1d4ed8;background:#fff}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;padding:9px 4px;border-top:1px solid var(--line)}
+.row .t{font-weight:600}
+.due{border-radius:99px;padding:2px 9px;font-size:11.5px;font-weight:700;white-space:nowrap}
+.d-late{background:#fef2f2;color:var(--bad)}.d-soon{background:#fffbeb;color:#92400e}.d-ok{background:#ecfdf5;color:#047857}
+.btn{border-radius:8px;padding:6px 11px;font-size:12px;font-weight:700;white-space:nowrap}
+.b1{background:var(--accent);color:#fff}.b2{background:#e0f2fe;color:#075985}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kpi{border:1px solid var(--line);border-radius:10px;padding:9px 10px}
+.kpi small{display:block;color:#64748b;font-size:11px;line-height:1.3;min-height:28px}.kpi b{font-size:21px}
+.bar{display:flex;height:24px;border-radius:7px;overflow:hidden;margin-top:12px}
+.bar i{display:block}
+.legend{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:8px;font-size:11px;color:#475569}
+.legend b{display:block;font-size:15px;color:var(--ink)}
+.card2{border:1px solid #a7f3d0;background:#ecfdf5;border-radius:10px;padding:10px 12px;margin-top:10px;color:#065f46;font-weight:600}
+.cond{display:grid;gap:6px;margin-top:8px}
+.cond div{display:flex;justify-content:space-between;border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+.cond .ok{color:#047857;font-weight:700}.cond .no{color:#92400e;font-weight:700}
+
+/* other roles */
+.roles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:32px}
+.roles div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.roles b{display:block;color:var(--ink);margin-bottom:4px}.roles span{font-size:14px}
+.head{max-width:44em;margin-bottom:8px}.head h2{font-size:clamp(26px,3.6vw,40px);font-weight:800;margin-top:8px}
+.head p{margin:12px 0 0;font-size:17px}
+
+/* proof */
+.proof{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:32px}
+.proof div{background:var(--card);padding:22px}
+.proof b{display:block;font-size:clamp(26px,3vw,36px);font-weight:800;color:var(--accent);line-height:1.1}
+.proof span{display:block;font-size:14px;margin-top:6px}
+
+/* offer */
+.offer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;margin-top:32px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px}
+.box.dark{background:var(--night);color:#cfdbea;border:0}.box.dark h3{color:#fff}
+.price{font-size:34px;font-weight:800;color:var(--ink);line-height:1.2}.price small{font-size:14px;color:var(--muted);font-weight:600}
+.cta{display:inline-flex;align-items:center;min-height:48px;margin-top:18px;background:#38bdf8;color:var(--night);font-weight:800;border-radius:10px;padding:10px 22px;text-decoration:none}
+footer{padding-block:32px;color:var(--muted);font-size:13px}
+@media (max-width:900px){.pick,.roles,.proof{grid-template-columns:repeat(2,minmax(0,1fr))}.panel,.offer{grid-template-columns:1fr}.stage{position:static}}
+@media (max-width:520px){.pick,.roles,.proof{grid-template-columns:1fr}section{padding-block:56px}.row{grid-template-columns:1fr auto}.row .btn{grid-column:1/-1;justify-self:start}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><span class="brand">Retail<b>PM</b></span><span class="note">MOCK để duyệt hướng · chưa phải trang chạy · tiếng Nhật làm sau khi chốt</span></div></header>
+
+<main>
+<!-- 1. HERO: nói với người dùng, chọn vai ngay -->
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Retail PM · quản lý fit-out gian hàng AEON Mall</div>
+    <h1>Mỗi người một ngày làm việc nhẹ hơn.</h1>
+    <p class="lead">Bạn là TC, PM, GM hay khách thuê, mở ra là thấy đúng việc của mình, không phải lục menu hay nhớ hạn. Chọn vai của bạn để xem một ngày làm việc trông thế nào.</p>
+    <div class="pick">
+      <a href="#vai"><span class="av a1">TC</span><b>Tenant Coordinator</b><span>Điều phối gian hàng hằng ngày, ra công trường bằng iPad.</span></a>
+      <a href="#vai"><span class="av a2">PM</span><b>PM · TC Leader</b><span>Nắm cả dự án, biết việc nào đang kẹt.</span></a>
+      <a href="#vai"><span class="av a3">GM</span><b>GM · Lãnh đạo</b><span>Nhìn rủi ro khai trương trong một phút.</span></a>
+      <a href="#vai"><span class="av a4">KT</span><b>Khách thuê</b><span>Biết mình cần nộp gì, còn thiếu gì để nhận bàn giao.</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- 2. MỘT NGÀY CỦA TỪNG VAI -->
+<section class="white" id="vai">
+  <div class="wrap tabs">
+    <div class="head"><div class="eyebrow">Một ngày làm việc</div><h2>Hệ thống làm phần việc tay, bạn làm phần cần quyết định.</h2></div>
+    <input type="radio" name="role" id="t1" checked><input type="radio" name="role" id="t2"><input type="radio" name="role" id="t3"><input type="radio" name="role" id="t4">
+    <div class="tabbar"><label for="t1">TC</label><label for="t2">PM · TC Leader</label><label for="t3">GM · Lãnh đạo</label><label for="t4">Khách thuê</label></div>
+    <div class="panels">
+
+      <!-- TC -->
+      <div class="panel p1">
+        <div>
+          <div class="who"><span class="av a1">M</span><div><b>Minh · Tenant Coordinator</b><span>Phụ trách 7 gian hàng</span></div></div>
+          <p class="promise">“Mở app ra là biết hôm nay đi đâu, gọi ai, duyệt gì.”</p>
+          <ul class="day">
+            <li><time>08:30</time><i></i><div><b>Mở “Việc của tôi”</b><span>10 việc gom theo lô, việc quá hạn lên đầu, mỗi việc một nút xử lý ngay.</span></div></li>
+            <li><time>09:15</time><i></i><div><b>Bấm “Nhắc khách”</b><span>Email nêu rõ form còn thiếu gửi đi ngay, hệ thống ghi giờ đã nhắc.</span></div></li>
+            <li><time>10:30</time><i></i><div><b>Ra công trường với iPad</b><span>Chụp ảnh, ảnh tự có mã lô, giờ, ngày. Không cần app đóng dấu thứ ba.</span></div></li>
+            <li><time>14:00</time><i></i><div><b>Khách ký form ngay trên màn hình</b><span>Mỗi ô ký một người, ký song song. Minh chỉ việc duyệt.</span></div></li>
+            <li><time>16:30</time><i></i><div><b>Giai đoạn tự đóng khi đủ hồ sơ</b><span>Không phải nhớ bấm, không bị báo trễ oan.</span></div></li>
+          </ul>
+          <div class="less"><h4>Minh không còn phải</h4><ul><li>In, ký, đóng dấu, scan rồi upload form ký online</li><li>Tự nhớ hạn và gọi điện đôn đốc từng gian hàng</li><li>Phân loại ảnh theo lô và ngày</li><li>Vẽ tay ranh giới từng lô khi có PDF mặt bằng</li></ul></div>
+        </div>
+        <div class="stage"><p class="cap">Màn hình của Minh · Việc của tôi (dữ liệu mẫu)</p>
+          <div class="app"><h5>Chào Minh, có 10 việc quá hạn hoặc tới hạn trong 7 ngày</h5>
+            <div class="lot"><span class="chip">T121</span><b>KOHI CAFE</b><span style="color:#64748b">GĐ 1 · Thông tin (TIF)</span></div>
+            <div class="row"><span class="t">Phiếu TIF chờ duyệt</span><span class="due d-late">Trễ 1 ngày</span><span class="btn b1">Duyệt TIF</span></div>
+            <div class="lot"><span class="chip">T114-1</span><b>SORA FASHION</b><span style="color:#64748b">GĐ 6 · Thi công & nghiệm thu</span></div>
+            <div class="row"><span class="t">9A · Nghiệm thu điện/nước tạm</span><span class="due d-soon">Hôm nay</span><span class="btn b1">Xem & duyệt →</span></div>
+            <div class="row"><span class="t">DFT-0412 · Thiếu ron chống thấm</span><span class="due d-ok">Còn 2 ngày</span><span class="btn" style="border:1px solid #e3e7ee">Ghi bằng chứng</span></div>
+            <div class="lot"><span class="chip">T116-1</span><b>MOCHI BAKERY</b><span style="color:#64748b">GĐ 4 · Bàn giao</span></div>
+            <div class="row"><span class="t" style="color:#64748b">Khách chưa nộp Form 5C, 6A</span><span class="due d-late">Trễ 3 ngày</span><span class="btn b2">Nhắc khách</span></div>
+          </div></div>
+      </div>
+
+      <!-- PM -->
+      <div class="panel p2">
+        <div>
+          <div class="who"><span class="av a2">PM</span><div><b>Hà · PM của dự án</b><span>Quản lý 24 gian hàng, 3 TC</span></div></div>
+          <p class="promise">“Không cần hỏi từng TC, tôi biết gian hàng nào kẹt và kẹt ở đâu.”</p>
+          <ul class="day">
+            <li><time>08:45</time><i></i><div><b>Mở “Tổng quan dự án”</b><span>16/24 gian hàng dự kiến kịp khai trương, 4 đang trễ.</span></div></li>
+            <li><time>09:30</time><i></i><div><b>Bấm vào mức “Cao”</b><span>Danh sách gian hàng rủi ro, bấm là tới đúng hồ sơ.</span></div></li>
+            <li><time>11:00</time><i></i><div><b>Việc trễ từ 7 ngày tự vào việc của PM</b><span>Đôn đốc đúng người, đúng việc, không chờ báo cáo.</span></div></li>
+            <li><time>15:00</time><i></i><div><b>Xem hồ sơ nội bộ đang giữ</b><span>Chờ ≤ 3 ngày, 4–7 ngày, trên 7 ngày, biết hồ sơ nằm ở ai.</span></div></li>
+            <li><time>17:00</time><i></i><div><b>Biểu đồ kế hoạch so với thực tế</b><span>Tự cập nhật theo tháng, không dựng báo cáo tay.</span></div></li>
+          </ul>
+          <div class="less"><h4>Hà không còn phải</h4><ul><li>Hỏi từng TC rồi gom số vào Excel</li><li>Ước lượng rủi ro khai trương theo cảm tính</li><li>Dựng báo cáo tiến độ bằng tay mỗi tuần</li></ul></div>
+        </div>
+        <div class="stage"><p class="cap">Màn hình của Hà · Tổng quan dự án (dữ liệu mẫu)</p>
+          <div class="app"><h5>Tổng quan dự án · Aeon Mall Demo</h5>
+            <div class="kpis"><div class="kpi"><small>Dự kiến kịp khai trương</small><b>16 <span style="font-size:11px;color:#64748b">/ 24</span></b></div><div class="kpi"><small>Đang trễ tiến độ</small><b style="color:#b91c1c">4</b></div><div class="kpi"><small>Hồ sơ nội bộ giữ &gt; 7 ngày</small><b>2</b></div></div>
+            <div class="bar"><i style="width:37.5%;background:#0f8a5f"></i><i style="width:29%;background:#5aa9e6"></i><i style="width:17%;background:#e0a526"></i><i style="width:12.5%;background:#e0682b"></i><i style="width:4%;background:#c62828"></i></div>
+            <div class="legend"><div>Đúng hạn<b>9</b></div><div>Thấp<b>7</b></div><div>Trung bình<b>4</b></div><div>Cao<b>3</b></div><div>Nghiêm trọng<b>1</b></div></div>
+          </div></div>
+      </div>
+
+      <!-- GM -->
+      <div class="panel p3">
+        <div>
+          <div class="who"><span class="av a3">GM</span><div><b>Ông Sato · GM</b><span>Theo dõi nhiều dự án</span></div></div>
+          <p class="promise">“Một phút mỗi sáng để biết khai trương có đúng hẹn không.”</p>
+          <ul class="day">
+            <li><time>08:00</time><i></i><div><b>Một cú bấm đổi dự án</b><span>Mỗi dự án một Tổng quan, cùng một cách đọc.</span></div></li>
+            <li><time>08:01</time><i></i><div><b>Đọc thanh dự báo khai trương</b><span>5 mức rủi ro tính theo ngày, không chờ báo cáo định kỳ.</span></div></li>
+            <li><time>10:00</time><i></i><div><b>Xem ngoại lệ đã duyệt</b><span>Mọi ngoại lệ ghi kèm lý do và danh sách điều kiện còn thiếu.</span></div></li>
+            <li><time>—</time><i></i><div><b>Chốt chặn trước khai trương</b><span>Còn lỗi Final Inspection thì không ai, kể cả quản lý, cho gian hàng mở cửa.</span></div></li>
+          </ul>
+          <div class="less"><h4>Ông Sato không còn phải</h4><ul><li>Chờ báo cáo định kỳ mới biết rủi ro</li><li>Hỏi lại ai đã duyệt ngoại lệ và vì sao</li><li>Gánh việc vận hành, phần đó thuộc TC và PM</li></ul></div>
+        </div>
+        <div class="stage"><p class="cap">Màn hình của GM · Dự báo & ngoại lệ (dữ liệu mẫu)</p>
+          <div class="app"><h5>Dự báo khai trương</h5>
+            <div class="bar" style="height:30px"><i style="width:37.5%;background:#0f8a5f"></i><i style="width:29%;background:#5aa9e6"></i><i style="width:17%;background:#e0a526"></i><i style="width:12.5%;background:#e0682b"></i><i style="width:4%;background:#c62828"></i></div>
+            <div class="legend"><div>Đúng hạn<b>9</b></div><div>Thấp<b>7</b></div><div>Trung bình<b>4</b></div><div>Cao<b>3</b></div><div>Nghiêm trọng<b>1</b></div></div>
+            <div class="cond"><div><span>Đóng giai đoạn 4 kèm lý do · T112</span><span class="no">còn 2 điều kiện</span></div></div>
+            <div class="card2" style="background:#fef2f2;border-color:#fecaca;color:#991b1b">T106 còn lỗi Final Inspection: không thể cho mở cửa</div>
+          </div></div>
+      </div>
+
+      <!-- Khách thuê -->
+      <div class="panel p4">
+        <div>
+          <div class="who"><span class="av a4">KT</span><div><b>Chị Lan · đại diện khách thuê</b><span>Gian hàng MOCHI BAKERY (T116-1)</span></div></div>
+          <p class="promise">“Tôi biết mình cần nộp gì, hạn khi nào, còn thiếu gì để nhận mặt bằng.”</p>
+          <ul class="day">
+            <li><time>09:00</time><i></i><div><b>Đăng nhập, thấy ngay việc của mình</b><span>Chỉ những gì khách cần nộp, kèm hạn.</span></div></li>
+            <li><time>09:20</time><i></i><div><b>Xem điều kiện nhận bàn giao</b><span>Thiếu mục nào, hệ thống nói rõ, không phải hỏi lại TC.</span></div></li>
+            <li><time>09:40</time><i></i><div><b>Ký form trên iPad</b><span>Đại diện ký xong, đưa máy cho nhà thầu ký ô bên cạnh.</span></div></li>
+            <li><time>—</time><i></i><div><b>Chỉ thấy hồ sơ của gian hàng mình</b><span>Tệp của khách khác không mở được.</span></div></li>
+          </ul>
+          <div class="less"><h4>Chị Lan không còn phải</h4><ul><li>In ra, ký tay, scan rồi gửi email</li><li>Hỏi TC “còn thiếu gì” qua điện thoại</li></ul></div>
+        </div>
+        <div class="stage"><p class="cap">Màn hình của khách thuê (dữ liệu mẫu)</p>
+          <div class="app"><h5>Điều kiện nhận bàn giao · 6/8</h5>
+            <div class="bar" style="height:10px;background:#e2e8f0"><i style="width:75%;background:#10b981"></i></div>
+            <div class="cond">
+              <div><span>Thiết kế chi tiết được duyệt</span><span class="ok">✓ Xong</span></div>
+              <div><span>Kế hoạch thi công</span><span class="ok">✓ Xong</span></div>
+              <div><span>Hoàn thành tiền đặt cọc</span><span class="ok">✓ Xong</span></div>
+              <div><span>Form 5C, 6A</span><span class="no">Còn 3 ngày</span></div>
+            </div>
+            <div class="row" style="margin-top:8px"><span class="t">Bạn cần nộp Form 5C, 6A</span><span class="due d-soon">Còn 3 ngày</span><span class="btn b1">Nộp hồ sơ</span></div>
+          </div></div>
+      </div>
+    </div>
+
+    <div class="roles">
+      <div><b>LEA · Leasing</b><span>Lập phiếu TIF trên mẫu giống giấy, xuất PDF.</span></div>
+      <div><b>TC Designer</b><span>Duyệt bản vẽ, mỗi lần nộp một phiên bản.</span></div>
+      <div><b>PCCC</b><span>Hồ sơ PCCC, phát hành Form 5A trong hệ thống.</span></div>
+      <div><b>Admin</b><span>Cấp tài khoản, phân quyền 14 vai, nhật ký thao tác.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. BẰNG CHỨNG: ngắn, số có căn cứ -->
+<section>
+  <div class="wrap">
+    <div class="head"><div class="eyebrow">Vì sao yên tâm</div><h2>Làm đúng quy trình của AEON, và đo được.</h2></div>
+    <div class="proof">
+      <div><b>7</b><span>giai đoạn, khoá hồ sơ từng bước, không dồn về cuối</span></div>
+      <div><b>36</b><span>loại form, ký trực tiếp với các form ký online</span></div>
+      <div><b>0,25–0,5 giây</b><span>mở một trang (đo ngày 04/10/2026, dữ liệu demo)</span></div>
+      <div><b>100%</b><span>dữ liệu thuộc về AEON, xuất bất cứ lúc nào</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. ƯU ĐÃI -->
+<section class="white">
+  <div class="wrap">
+    <div class="head"><div class="eyebrow">Bắt đầu</div><h2>Dùng thử một tháng, rồi quyết định.</h2></div>
+    <div class="offer">
+      <div class="box dark"><h3>Dùng thử miễn phí từ 1/11</h3><p>Tối đa 2 dự án. Các vai thật của AEON dùng và góp ý, đội ngũ sửa theo phản hồi. Cuối tháng 11 họp đánh giá theo tiêu chí viết sẵn, đạt thì ký, từ 1/12 chạy thật. Thoát bất cứ lúc nào, không phạt.</p><a class="cta" href="#">Đặt buổi demo 30 phút</a></div>
+      <div class="box"><h3>Thuê theo tháng</h3><div class="price">2.000 USD <small>/ dự án / tháng, năm 1</small></div><p style="margin:6px 0 0">Năm 2: 1.800 USD · từ năm 3: 1.500 USD. Không vốn ban đầu, đã gồm hosting, bảo trì, hỗ trợ. Khoá giá 5 năm. Có thể mua đứt bất cứ lúc nào.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+<footer><div class="wrap">© 2026 · Bản quyền thuộc về anhcoming@gmail.com. Số liệu và gian hàng trong ví dụ là dữ liệu mẫu.</div></footer>
+</body>
+</html>

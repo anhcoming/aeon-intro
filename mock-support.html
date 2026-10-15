@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mock · Cam kết hỗ trợ</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+/* MOCK tĩnh — chưa phải trang cuối. Cùng tông trang giới thiệu. */
+:root{--paper:#f4f6f9;--card:#fff;--ink:#0f172a;--body:#475569;--muted:#64748b;--line:#e2e8f0;--accent:#2563eb;--soft:#dbeafe;--night:#0f1d4a;--f:"Plus Jakarta Sans",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--body);font:16px/1.6 var(--f);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+h2,h3{color:var(--ink);margin:0;line-height:1.25}
+.top{background:#fff;border-bottom:1px solid var(--line);padding:14px 0;font-size:13px;color:var(--muted)}
+.sec{padding:56px 0}.sec.alt{background:#fff;border-block:1px solid var(--line)}
+.opt{display:inline-flex;background:var(--soft);color:#1d4ed8;font-weight:800;font-size:13px;padding:4px 14px;border-radius:99px;margin-bottom:12px}
+.why{font-size:15px;max-width:48em;margin:8px 0 26px}.why b{color:var(--ink)}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+/* A: 3 severity cards */
+.cards{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:16px}
+.sv{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
+.sv::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px}
+.sv.urg{border-color:#fecaca;box-shadow:0 18px 40px -22px rgba(185,28,28,.45)}
+.sv.urg::before{background:#dc2626}.sv.imp::before{background:#f97316}.sv.min::before{background:#2563eb}
+.pill{align-self:flex-start;font-size:13px;font-weight:800;padding:4px 14px;border-radius:99px}
+.urg .pill{background:#fee2e2;color:#b91c1c}.imp .pill{background:#ffedd5;color:#c2410c}.min .pill{background:#dbeafe;color:#1d4ed8}
+.ex{font-size:14px;color:var(--muted);min-height:44px}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kv div{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.kv small{display:block;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.kv b{font-size:22px;color:var(--ink);line-height:1.2;display:block;margin-top:2px}
+.urg .kv div{background:#fff1f2;border-color:#fecdd3}.urg .kv b{color:#b91c1c;font-size:26px}
+.note{font-size:12.5px;color:var(--muted);margin-top:16px}
+/* B: timeline */
+.tl{background:var(--night);border-radius:22px;padding:30px 32px;color:#c7d2f0}
+.tl h3{color:#fff;font-size:18px;margin-bottom:6px}
+.tl p{margin:0 0 24px;font-size:14px}
+.lane{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center;padding:14px 0;border-top:1px solid rgba(255,255,255,.1)}
+.lane:first-of-type{border-top:0}
+.lane .name b{display:block;color:#fff;font-size:15px}
+.lane .name span{font-size:12.5px;color:#93a3d1}
+.track{position:relative;height:44px}
+.track .base{position:absolute;left:0;right:0;top:20px;height:4px;background:rgba(255,255,255,.14);border-radius:2px}
+.seg{position:absolute;top:16px;height:12px;border-radius:6px}
+.dot{position:absolute;top:10px;width:24px;height:24px;border-radius:50%;border:3px solid var(--night);transform:translateX(-50%)}
+.lbl{position:absolute;top:-8px;transform:translateX(-50%);font-size:12px;font-weight:700;white-space:nowrap;color:#fff}
+.lbl.b{top:32px;font-weight:600;color:#a5b4d8}
+.scale{display:grid;grid-template-columns:150px 1fr;gap:16px;margin-top:10px}
+.scale div:last-child{display:flex;justify-content:space-between;font-size:12px;color:#7f8fc0}
+@media(max-width:900px){.cards{grid-template-columns:1fr}.lane,.scale{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap"><b style="color:var(--ink)">MOCK</b> · Cam kết hỗ trợ (mục Chi phí) · tĩnh · số liệu đúng như đã chốt: Khẩn cấp 1 giờ / trong ngày · Quan trọng 4 giờ làm việc / 1 ngày làm việc · Nhẹ 1 ngày làm việc / 3 ngày làm việc</div></div>
+
+<section class="sec alt">
+  <div class="wrap">
+    <span class="opt">Hiện tại (để so)</span>
+    <p class="why">Bảng 4 cột: đủ thông tin nhưng phải đọc từng hàng, mức Khẩn cấp không nổi bật hơn hai mức còn lại.</p>
+    <div style="border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff">
+      <table style="width:100%;border-collapse:collapse;font-size:14.5px">
+        <tr style="background:#f8fafc;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em"><th style="text-align:left;padding:12px 16px">Mức sự cố</th><th style="text-align:left;padding:12px 16px">Ví dụ</th><th style="text-align:left;padding:12px 16px">Tiếp nhận phản hồi</th><th style="text-align:left;padding:12px 16px">Xử lý</th></tr>
+        <tr><td style="padding:13px 16px;border-top:1px solid var(--line)"><b style="background:#fee2e2;color:#b91c1c;border-radius:99px;padding:3px 12px;font-size:13px">Khẩn cấp</b></td><td style="padding:13px 16px;border-top:1px solid var(--line)">Hệ thống không truy cập được…</td><td style="padding:13px 16px;border-top:1px solid var(--line)"><b>1 giờ</b></td><td style="padding:13px 16px;border-top:1px solid var(--line)"><b>Ngay trong ngày</b></td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <span class="opt">Phương án A · 3 thẻ mức sự cố</span>
+    <h2 style="font-size:28px">Cam kết hỗ trợ</h2>
+    <p class="why"><b>Ý tưởng:</b> mỗi mức là một thẻ có vạch màu bên trái; số "1 giờ" và "Trong ngày" to, rõ. Thẻ Khẩn cấp rộng hơn và có viền đỏ nhạt để nổi bật. Nhìn lướt là hiểu mức nào nhanh cỡ nào, hợp với người ra quyết định.</p>
+    <div class="cards">
+      <div class="sv urg"><span class="pill">Khẩn cấp</span><div class="ex">Hệ thống không truy cập được, hoặc mất dữ liệu</div>
+        <div class="kv"><div><small>Tiếp nhận phản hồi</small><b>1 giờ</b></div><div><small>Xử lý</small><b>Trong ngày</b></div></div></div>
+      <div class="sv imp"><span class="pill">Quan trọng</span><div class="ex">Một chức năng chính không chạy, chưa có cách tạm</div>
+        <div class="kv"><div><small>Tiếp nhận phản hồi</small><b>4 giờ</b></div><div><small>Xử lý</small><b>1 ngày</b></div></div></div>
+      <div class="sv min"><span class="pill">Nhẹ</span><div class="ex">Lỗi hiển thị, hoặc đã có cách tạm</div>
+        <div class="kv"><div><small>Tiếp nhận phản hồi</small><b>1 ngày</b></div><div><small>Xử lý</small><b>3 ngày</b></div></div></div>
+    </div>
+    <p class="note">Quan trọng và Nhẹ tính theo giờ/ngày làm việc (T2–T6, 09:00–18:00 giờ Việt Nam). Khẩn cấp vẫn được tiếp nhận ngoài giờ.</p>
+  </div>
+</section>
+
+<section class="sec alt">
+  <div class="wrap">
+    <span class="opt">Phương án B · Dòng thời gian</span>
+    <h2 style="font-size:28px">Cam kết hỗ trợ</h2>
+    <p class="why"><b>Ý tưởng:</b> mỗi mức là một thanh thời gian trên cùng thang đo: chấm "Tiếp nhận" và chấm "Xử lý xong". Khách thấy ngay khoảng cách giữa các mức (1 giờ so với 3 ngày) mà không cần đọc chữ. Hợp trang giới thiệu có nền tối.</p>
+    <div class="tl">
+      <h3>Từ lúc báo sự cố đến lúc xử lý xong</h3>
+      <p>Khoảng cách thể hiện tương đối, không theo tỷ lệ chính xác.</p>
+      <div class="lane"><div class="name"><b>Khẩn cấp</b><span>Hệ thống không truy cập được / mất dữ liệu</span></div>
+        <div class="track"><div class="base"></div><div class="seg" style="left:6%;width:24%;background:#ef4444"></div><div class="dot" style="left:6%;background:#fca5a5"></div><div class="dot" style="left:30%;background:#ef4444"></div><div class="lbl" style="left:6%">1 giờ</div><div class="lbl" style="left:30%">Trong ngày</div><div class="lbl b" style="left:6%">tiếp nhận</div><div class="lbl b" style="left:30%">xử lý xong</div></div></div>
+      <div class="lane"><div class="name"><b>Quan trọng</b><span>Một chức năng chính không chạy</span></div>
+        <div class="track"><div class="base"></div><div class="seg" style="left:6%;width:44%;background:#f97316"></div><div class="dot" style="left:6%;background:#fdba74"></div><div class="dot" style="left:50%;background:#f97316"></div><div class="lbl" style="left:6%">4 giờ</div><div class="lbl" style="left:50%">1 ngày</div></div></div>
+      <div class="lane"><div class="name"><b>Nhẹ</b><span>Lỗi hiển thị / đã có cách tạm</span></div>
+        <div class="track"><div class="base"></div><div class="seg" style="left:20%;width:70%;background:#3b82f6"></div><div class="dot" style="left:20%;background:#93c5fd"></div><div class="dot" style="left:90%;background:#3b82f6"></div><div class="lbl" style="left:20%">1 ngày</div><div class="lbl" style="left:90%">3 ngày</div></div></div>
+      <div class="scale"><div></div><div><span>Báo sự cố</span><span>Trong ngày</span><span>1 ngày</span><span>3 ngày</span></div></div>
+    </div>
+    <p class="note">Quan trọng và Nhẹ tính theo giờ/ngày làm việc (T2–T6, 09:00–18:00 giờ Việt Nam). Khẩn cấp vẫn được tiếp nhận ngoài giờ.</p>
+  </div>
+</section>
+</body>
+</html>

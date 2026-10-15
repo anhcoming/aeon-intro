@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mock C2 · Dải thẻ tính năng nhiều màu</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+/* MOCK tĩnh — phương án C làm lại: thẻ có dải màu theo nhóm, số liệu nổi, hình minh hoạ giàu hơn, thêm "dành cho vai nào". */
+:root{--paper:#f4f6f9;--card:#fff;--ink:#0f172a;--body:#475569;--muted:#64748b;--line:#e2e8f0;--accent:#2563eb;--f:"Plus Jakarta Sans",system-ui,sans-serif;
+ --c1:#2563eb;--c1b:#60a5fa;--c1s:#eff6ff;
+ --c2:#059669;--c2b:#34d399;--c2s:#ecfdf5;
+ --c3:#ea580c;--c3b:#fb923c;--c3s:#fff7ed;
+ --c4:#7c3aed;--c4b:#a78bfa;--c4s:#f5f3ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--body);font:16px/1.6 var(--f);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+h2,h3{color:var(--ink);margin:0;line-height:1.25}
+.top{background:#fff;border-bottom:1px solid var(--line);padding:14px 0;font-size:13px;color:var(--muted)}
+.sec{padding:56px 0 40px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.hd{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+.hd h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;margin-top:8px;max-width:18em}
+.legend{display:flex;gap:8px;flex-wrap:wrap}
+.legend span{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:99px;padding:6px 13px}
+.legend i{width:10px;height:10px;border-radius:50%}
+.ctl{display:flex;gap:8px}
+.ctl button{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:20px;cursor:pointer;color:var(--ink)}
+.ctl button:hover{border-color:var(--accent);color:var(--accent)}
+
+.rail{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px 20px 26px;margin:0 -20px;scrollbar-width:thin}
+.rc{flex:0 0 min(372px,84vw);scroll-snap-align:start;background:#fff;border:1px solid var(--line);border-radius:26px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 18px 40px -26px rgba(15,23,42,.35)}
+.g1{--c:var(--c1);--cb:var(--c1b);--cs:var(--c1s)}.g2{--c:var(--c2);--cb:var(--c2b);--cs:var(--c2s)}.g3{--c:var(--c3);--cb:var(--c3b);--cs:var(--c3s)}.g4{--c:var(--c4);--cb:var(--c4b);--cs:var(--c4s)}
+.rc-top{background:linear-gradient(135deg,var(--c),var(--cb));color:#fff;padding:20px 22px 18px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;position:relative;overflow:hidden}
+.rc-top::after{content:"";position:absolute;right:-30px;top:-40px;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,.14)}
+.rc-top .gname{font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.92}
+.rc-top .ic{width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.22);display:grid;place-items:center;margin-bottom:10px}
+.rc-top .ic svg{width:22px;height:22px}
+.stat{text-align:right;position:relative;z-index:1}
+.stat b{display:block;font-size:34px;font-weight:800;line-height:1}
+.stat span{font-size:12px;opacity:.92}
+.rc-body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:14px;flex:1}
+.rc h3{font-size:20px;font-weight:800}
+.rc p{margin:0;font-size:14.5px}
+.mv{background:var(--cs);border:1px solid color-mix(in srgb,var(--c) 18%,#fff);border-radius:16px;padding:12px;font-size:12px}
+.row{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 9px;margin-bottom:6px}
+.row:last-child{margin-bottom:0}
+.row i{width:22px;height:22px;border-radius:7px;background:color-mix(in srgb,var(--c) 18%,#fff);flex:none}
+.row b{color:var(--ink);font-size:12px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pill{font-size:10.5px;font-weight:800;border-radius:99px;padding:2px 8px;white-space:nowrap}
+.p-r{background:#fee2e2;color:#b91c1c}.p-a{background:#fef3c7;color:#92400e}.p-g{background:#dcfce7;color:#166534}.p-b{background:#dbeafe;color:#1d4ed8}
+.btn{font-size:10.5px;font-weight:800;border-radius:7px;padding:4px 9px;background:var(--c);color:#fff;white-space:nowrap}
+ul.pts{margin:0;padding:0;list-style:none;display:grid;gap:7px;font-size:14px}
+ul.pts li{display:flex;gap:9px;align-items:flex-start}
+ul.pts li::before{content:"";width:18px;height:18px;border-radius:50%;flex:none;margin-top:2px;background:var(--cs) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23334155' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 10.5l3.5 3.5L15 7'/%3E%3C/svg%3E") center/11px no-repeat;border:1px solid color-mix(in srgb,var(--c) 30%,#fff)}
+.who{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:4px;align-items:center}
+.who small{font-size:11px;font-weight:700;color:var(--muted);margin-right:2px}
+.who span{font-size:11.5px;font-weight:800;border-radius:99px;padding:3px 10px;background:var(--cs);color:var(--c);border:1px solid color-mix(in srgb,var(--c) 22%,#fff)}
+/* visuals */
+.tl{display:grid;gap:7px}.tl div{display:flex;gap:9px;align-items:center;font-size:12px}.tl u{width:18px;height:18px;border-radius:50%;background:#e2e8f0;flex:none;display:grid;place-items:center;font-size:10px;text-decoration:none;color:#fff;font-weight:800}
+.tl .done u{background:var(--c2b)}.tl .on u{background:#dc2626}.tl .on b{color:var(--ink)}
+.sig svg{width:100%;height:54px;display:block}
+.sig .who2{display:flex;justify-content:space-between;align-items:center;margin-top:4px}
+.mail{display:grid;gap:5px}.mail span{background:#fff;border:1px solid var(--line);border-radius:8px;padding:5px 9px;font-size:11.5px}.mail em{font-style:normal;color:var(--c);font-weight:800}
+.photo{aspect-ratio:16/9;border-radius:11px;background:linear-gradient(135deg,#94a3b8,#cbd5e1 60%,#e2e8f0);position:relative;margin-bottom:8px}
+.photo span{position:absolute;left:8px;bottom:8px;background:rgba(15,23,42,.8);color:#fff;border-radius:7px;padding:4px 8px;font-size:10.5px}
+.thumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}.thumbs i{aspect-ratio:1;border-radius:6px;background:#cbd5e1}.thumbs i:last-child{background:#fff;border:1px dashed #94a3b8}
+.plan{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:8px}.plan i{height:24px;border-radius:5px;background:#bbf7d0}.plan i:nth-child(3n){background:#bfdbfe}.plan i:nth-child(5n){background:#fde68a}.plan i:nth-child(8n){background:#fecaca}
+.cmp{display:flex;justify-content:space-between;font-size:11px}
+.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.kp div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:6px 8px}
+.kp b{display:block;font-size:19px;color:var(--ink);line-height:1.1}.kp small{font-size:10px;color:var(--muted)}
+.bar{display:flex;height:11px;border-radius:6px;overflow:hidden;margin:9px 0 6px}.bar i{display:block}
+.lg{display:flex;gap:10px;font-size:10px;color:var(--muted);flex-wrap:wrap}.lg i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:3px}
+.hint{font-size:13px;color:var(--muted);margin-top:2px}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap"><b style="color:var(--ink)">MOCK C2</b> · Dải thẻ tính năng (làm lại theo ý bạn: nhiều màu hơn, nhiều thông tin hơn) · 7 thẻ · cuộn ngang / bấm hai mũi tên · hình minh hoạ chỉ để xem bố cục</div></div>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="hd">
+      <div><div class="eyebrow">Tính năng</div><h2>Bảy việc hệ thống làm thay bạn.</h2></div>
+      <div class="legend"><span><i style="background:var(--c1)"></i>Hằng ngày</span><span><i style="background:var(--c2)"></i>Hồ sơ</span><span><i style="background:var(--c3)"></i>Hiện trường &amp; mặt bằng</span><span><i style="background:var(--c4)"></i>Quản lý</span></div>
+    </div>
+    <div class="ctl" style="margin-bottom:12px"><button id="pv" aria-label="Trước">‹</button><button id="nx" aria-label="Sau">›</button></div>
+    <div class="rail" id="rail">
+
+      <article class="rc g1"><div class="rc-top"><div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div><div class="gname">Hằng ngày</div></div><div class="stat"><b>14</b><span>vai, mỗi vai một danh sách</span></div></div>
+        <div class="rc-body"><h3>Đăng nhập là biết hôm nay làm gì</h3><p>Việc xếp theo hạn, duyệt, nộp, nghiệm thu bằng một nút ngay tại chỗ.</p>
+          <div class="mv"><div class="row"><i></i><b>Phiếu TIF · KOHI CAFE</b><span class="pill p-r">Trễ 1 ngày</span><span class="btn">Duyệt</span></div><div class="row"><i></i><b>9A · Nghiệm thu điện/nước tạm</b><span class="pill p-a">Hôm nay</span><span class="btn">Xem</span></div><div class="row"><i></i><b>DFT-0412 · Thiếu ron chống thấm</b><span class="pill p-b">Còn 2 ngày</span></div></div>
+          <ul class="pts"><li>Bấm vào việc là mở đúng gian hàng, hồ sơ</li><li>Việc của người khác hiện kèm nút "Nhắc"</li><li>Lọc: Quá hạn · Hôm nay · 7 ngày tới</li></ul>
+          <div class="who"><small>Dành cho</small><span>TC</span><span>LEA</span><span>PM</span><span>Khách thuê</span></div></div></article>
+
+      <article class="rc g1"><div class="rc-top"><div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg></div><div class="gname">Hằng ngày</div></div><div class="stat"><b>3 · 7</b><span>ngày trễ thì lên cấp trên</span></div></div>
+        <div class="rc-body"><h3>Sắp đến hạn thì báo, trễ hạn thì nhắc khách</h3><p>Mỗi ngày hệ thống kiểm tra hạn, báo trong app và qua email.</p>
+          <div class="mv"><div class="tl"><div class="done"><u>1</u>5 ngày trước bàn giao · tự cảnh báo</div><div class="done"><u>2</u>Trễ 1 ngày · TC bấm "Nhắc khách", email gửi ngay</div><div class="done"><u>3</u>Trễ 3 ngày · vào việc của TC Leader</div><div class="on"><u>4</u><b>Trễ 7 ngày · vào việc của PM</b></div></div></div>
+          <ul class="pts"><li>Email ghi rõ form còn thiếu</li><li>Ghi giờ đã nhắc, chặn nhắc trùng</li></ul>
+          <div class="who"><small>Dành cho</small><span>TC</span><span>TC Leader</span><span>PM</span></div></div></article>
+
+      <article class="rc g2"><div class="rc-top"><div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></div><div class="gname">Hồ sơ</div></div><div class="stat"><b>0</b><span>tờ giấy, không scan</span></div></div>
+        <div class="rc-body"><h3>Ký trực tiếp trên web</h3><p>Điền thẳng vào PDF và ký tay ngay trên màn hình, ký xong là nộp.</p>
+          <div class="mv sig"><svg viewBox="0 0 400 100"><path d="M40 70 C 38 40 50 14 66 14 C 78 14 74 40 60 58 C 50 70 52 80 64 76 C 90 68 120 44 150 48 C 172 52 160 74 180 70 C 204 64 216 38 244 42 C 268 46 256 70 276 66 C 296 62 316 48 360 30" fill="none" stroke="#1d3c6e" stroke-width="3" stroke-linecap="round"/></svg><div class="who2"><span class="pill p-g">Đại diện khách thuê · Đã ký</span><span class="pill p-a">Nhà thầu · Chờ ký</span></div></div>
+          <ul class="pts"><li>Mỗi ô ký có người ký riêng, ký song song</li><li>Xem lại PDF đã ký trước khi nộp</li><li>Vẫn đi đúng bước duyệt như thường</li></ul>
+          <div class="who"><small>Dành cho</small><span>Khách thuê</span><span>TC</span><span>LEA</span></div></div></article>
+
+      <article class="rc g2"><div class="rc-top"><div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div><div class="gname">Hồ sơ</div></div><div class="stat"><b>30</b><span>ngày hiệu lực link tải</span></div></div>
+        <div class="rc-body"><h3>Gửi email ngay trên web</h3><p>Mẫu song ngữ Anh–Việt có sẵn, chỉ điền vài ô là gửi.</p>
+          <div class="mv mail"><span>Đến: <em>Ms. Linh Nguyen</em></span><span>CC: lea · leader · pm · pccc (tự điền)</span><span>Tiêu đề: AMTH/ T304 MYKINGDOM/ INTRODUCTION</span><span>Tệp: <em>Fit-out Handbook.pdf</em> · <em>Design Guideline.pdf</em></span></div>
+          <ul class="pts"><li>Gửi theo tên TC, khách trả lời thẳng cho TC</li><li>Đính tài liệu từ thư viện bằng link tải</li><li>Ghi nhận đã gửi, việc "gửi thư" tự hoàn thành</li></ul>
+          <div class="who"><small>Dành cho</small><span>TC</span><span>LEA</span></div></div></article>
+
+      <article class="rc g3"><div class="rc-top"><div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></div><div class="gname">Hiện trường &amp; mặt bằng</div></div><div class="stat"><b>≥15</b><span>ảnh mỗi báo cáo ngày</span></div></div>
+        <div class="rc-body"><h3>Ảnh tự có mã lô và ngày giờ</h3><p>Chụp bằng camera iPad, mã lô, ngày giờ in thẳng lên ảnh.</p>
+          <div class="mv"><div class="photo"><span>T121 · 14/10/2026 · 09:15 · Thứ Tư</span></div><div class="thumbs"><i></i><i></i><i></i><i></i><i></i></div></div>
+          <ul class="pts"><li>Chỉ ảnh mới chụp được đóng dấu, không gắn giờ cho ảnh cũ</li><li>Quá 21:00 chưa nộp báo cáo thì nhắc TC, PM, GM</li></ul>
+          <div class="who"><small>Dành cho</small><span>TC</span><span>PM</span><span>GM</span></div></div></article>
+
+      <article class="rc g3"><div class="rc-top"><div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><div class="gname">Hiện trường &amp; mặt bằng</div></div><div class="stat"><b>7–10 s</b><span>để nhận diện lô một tầng</span></div></div>
+        <div class="rc-body"><h3>Lô tự động từ PDF mặt bằng</h3><p>Không vẽ thủ công từng lô. Tải PDF, thuật toán đọc mã lô, diện tích, ranh giới.</p>
+          <div class="mv"><div class="plan"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="cmp"><span><b style="color:#166534">34</b> lô mới</span><span><b style="color:#1d4ed8">2</b> lô đổi</span><span><b style="color:#92400e">1</b> lô khoá</span></div></div>
+          <ul class="pts"><li>Bảng so sánh trước khi áp dụng</li><li>Chưa bấm Áp dụng thì chưa có gì đổi</li><li>Lô đã có gian hàng hoặc lỗi được khoá</li></ul>
+          <div class="who"><small>Dành cho</small><span>Admin</span></div></div></article>
+
+      <article class="rc g4"><div class="rc-top"><div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg></div><div class="gname">Quản lý</div></div><div class="stat"><b>5</b><span>mức rủi ro khai trương</span></div></div>
+        <div class="rc-body"><h3>PM, GM, TC Leader nắm cả dự án</h3><p>Không phải hỏi từng TC. Rủi ro, việc trễ, hồ sơ nội bộ hiện ngay trước mắt, theo đúng vai.</p>
+          <div class="mv"><div class="kp"><div><b>16<small>/24</small></b><small>Kịp khai trương</small></div><div><b style="color:#b91c1c">4</b><small>Đang trễ</small></div><div><b>5</b><small>PCCC chưa xong</small></div></div><div class="bar"><i style="width:38%;background:#0f8a5f"></i><i style="width:28%;background:#60a5fa"></i><i style="width:18%;background:#f59e0b"></i><i style="width:12%;background:#ea580c"></i><i style="width:4%;background:#dc2626"></i></div><div class="lg"><span><i style="background:#0f8a5f"></i>Đúng hạn</span><span><i style="background:#60a5fa"></i>Thấp</span><span><i style="background:#f59e0b"></i>Vừa</span><span><i style="background:#ea580c"></i>Cao</span><span><i style="background:#dc2626"></i>Nghiêm trọng</span></div></div>
+          <ul class="pts"><li>Bấm vào mức rủi ro là tới đúng gian hàng</li><li>Còn lỗi Final Inspection thì chưa cho khai trương</li></ul>
+          <div class="who"><small>Dành cho</small><span>PM</span><span>GM</span><span>TC Leader</span></div></div></article>
+
+    </div>
+    <p class="hint">← vuốt / cuộn ngang → · trên iPad vuốt tay là xem, hai mũi tên ẩn đi</p>
+  </div>
+</section>
+<script>
+var r=document.getElementById("rail");
+document.getElementById("nx").onclick=function(){r.scrollBy({left:390,behavior:"smooth"})};
+document.getElementById("pv").onclick=function(){r.scrollBy({left:-390,behavior:"smooth"})};
+</script>
+</body>
+</html>

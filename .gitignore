@@ -1,0 +1,6 @@
+.DS_Store
+node_modules
+.vercel
+.env*
+# file người dùng tải lên khi demo, không đưa vào git
+.demo-uploads

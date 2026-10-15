@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mock · Bộ tính năng dạng thẻ</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+/* MOCK tĩnh — 3 cách trình bày bộ "Tính năng" thay cho dải slide ngang. Nội dung đúng 7 tính năng đang có trên trang. */
+:root{--paper:#f4f6f9;--card:#fff;--ink:#0f172a;--body:#475569;--muted:#64748b;--line:#e2e8f0;--accent:#2563eb;--soft:#dbeafe;--night:#0f1d4a;--ok:#0f8a5f;--red:#dc2626;--amb:#f59e0b;--f:"Plus Jakarta Sans",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--body);font:16px/1.6 var(--f);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+h2,h3,h4{color:var(--ink);margin:0;line-height:1.25}
+.top{background:#fff;border-bottom:1px solid var(--line);padding:14px 0;font-size:13px;color:var(--muted)}
+.sec{padding:56px 0}.sec.alt{background:#fff;border-block:1px solid var(--line)}
+.opt{display:inline-flex;background:var(--soft);color:#1d4ed8;font-weight:800;font-size:13px;padding:4px 14px;border-radius:99px;margin-bottom:12px}
+.why{font-size:15px;max-width:52em;margin:8px 0 26px}.why b{color:var(--ink)}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.hd{margin-bottom:28px}.hd h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;margin-top:8px}
+.grp{font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.num{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--soft);color:#1d4ed8;font-weight:800;font-size:13px}
+/* ---------- mini visuals ---------- */
+.mv{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:12px;font-size:12px;color:var(--body);overflow:hidden}
+.row{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:9px;padding:7px 9px;margin-bottom:6px}
+.row i{width:22px;height:22px;border-radius:7px;background:#eef2ff;flex:none}
+.row b{color:var(--ink);font-size:12px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pill{font-size:10.5px;font-weight:800;border-radius:99px;padding:2px 8px;white-space:nowrap}
+.p-r{background:#fee2e2;color:#b91c1c}.p-a{background:#fef3c7;color:#92400e}.p-g{background:#dcfce7;color:#166534}.p-b{background:#dbeafe;color:#1d4ed8}
+.btn{font-size:10.5px;font-weight:800;border-radius:7px;padding:4px 9px;background:var(--accent);color:#fff;white-space:nowrap}
+.steps{display:grid;gap:5px}.steps div{display:flex;gap:8px;align-items:center}.steps u{width:16px;height:16px;border-radius:50%;background:#e2e8f0;flex:none}
+.steps .on u{background:var(--red)}.steps .done u{background:#bbf7d0}
+.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.kp div{background:#fff;border:1px solid var(--line);border-radius:9px;padding:6px 8px}
+.kp b{display:block;font-size:17px;color:var(--ink);line-height:1.1}.kp small{font-size:10px;color:var(--muted)}
+.bar{display:flex;height:10px;border-radius:6px;overflow:hidden;margin:8px 0}.bar i{display:block}
+.plan{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}.plan i{height:22px;border-radius:4px;background:#bbf7d0}.plan i:nth-child(3n){background:#bfdbfe}.plan i:nth-child(5n){background:#fde68a}.plan i:nth-child(7n){background:#fecaca}
+.photo{aspect-ratio:16/9;border-radius:9px;background:linear-gradient(135deg,#94a3b8,#cbd5e1);position:relative}
+.photo span{position:absolute;left:8px;bottom:8px;background:rgba(15,23,42,.78);color:#fff;border-radius:6px;padding:3px 7px;font-size:10px}
+.sig svg{width:100%;height:46px}
+.mail{display:grid;gap:5px}.mail span{background:#fff;border:1px solid var(--line);border-radius:7px;padding:5px 8px;font-size:11px}.mail em{font-style:normal;color:var(--accent);font-weight:700}
+
+/* ---------- A: bento ---------- */
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.bc{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.bc h3{font-size:19px;font-weight:800}.bc p{margin:0;font-size:14.5px}
+.bc.big{grid-column:span 6}.bc.mid{grid-column:span 4}.bc.sm{grid-column:span 4}
+.bc.dark{background:var(--night);border-color:var(--night);color:#c7d2f0}.bc.dark h3{color:#fff}.bc.dark .grp{color:#93a3d1}
+.bc.dark .mv{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);color:#c7d2f0}
+.bc .mv{margin-top:auto}
+/* ---------- B: vertical tabs ---------- */
+.vt{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:22px;align-items:start}
+.vt-list{display:grid;gap:6px}
+.vt-g{margin:10px 6px 2px}.vt-g:first-child{margin-top:0}
+.vt-b{display:flex;gap:12px;align-items:center;text-align:left;font:600 15px var(--f);color:var(--body);background:transparent;border:1px solid transparent;border-radius:14px;padding:12px 14px;cursor:pointer;min-height:48px}
+.vt-b:hover{background:#fff}
+.vt-b[aria-selected=true]{background:#fff;border-color:var(--accent);color:var(--ink);box-shadow:0 10px 24px -16px rgba(37,99,235,.55)}
+.vt-p{display:none;background:var(--night);color:#c7d2f0;border-radius:24px;padding:30px 32px;min-height:440px}
+.vt-p.on{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:26px;align-items:center}
+.vt-p h3{color:#fff;font-size:26px;font-weight:800;margin:6px 0 10px}.vt-p p{margin:0 0 14px}
+.vt-p ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:14.5px}
+.vt-p li::before{content:"✓";color:#6ee7b7;font-weight:800;margin-right:8px}
+.vt-p .grp{color:#93a3d1}
+.vt-p .mv{background:#fff;color:var(--body)}
+/* ---------- C: card rail ---------- */
+.rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 20px 22px;margin:0 -20px;scrollbar-width:thin}
+.rc{flex:0 0 min(340px,82vw);scroll-snap-align:start;background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:12px;min-height:430px}
+.rc h3{font-size:19px;font-weight:800}.rc p{margin:0;font-size:14.5px}
+.rc .mv{margin-top:auto}
+.rc .tag{align-self:flex-start;font-size:11.5px;font-weight:800;border-radius:99px;padding:3px 11px}
+.t1{background:#dbeafe;color:#1d4ed8}.t2{background:#dcfce7;color:#166534}.t3{background:#ffedd5;color:#c2410c}.t4{background:#ede9fe;color:#5b21b6}
+.hint{font-size:13px;color:var(--muted);margin-top:4px}
+@media(max-width:900px){.bc.big,.bc.mid,.bc.sm{grid-column:span 12}.vt{grid-template-columns:1fr}.vt-p.on{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap"><b style="color:var(--ink)">MOCK</b> · Bộ "Tính năng" · 3 cách trình bày dạng thẻ thay cho dải slide ngang · 7 tính năng, 4 nhóm đúng như trên trang hiện tại · tĩnh (B có bấm chọn được)</div></div>
+
+<!-- ============ A ============ -->
+<section class="sec">
+  <div class="wrap">
+    <span class="opt">Phương án A · Lưới thẻ bento</span>
+    <div class="hd"><div class="eyebrow">Tính năng</div><h2>Mọi việc hằng ngày, gọn trong một hệ thống.</h2></div>
+    <p class="why"><b>Ý tưởng:</b> bảy tính năng hiện hết trên một màn hình, thẻ to nhỏ khác nhau để nhấn ý chính (Việc của tôi và Tổng quan quản lý là thẻ lớn). Mỗi thẻ có một hình minh hoạ nhỏ thay cho demo tương tác. Không phải bấm qua từng slide, người xem lướt một lần là thấy hết. Hợp để dùng làm phần "tóm tắt" sau phần Cách vận hành.</p>
+    <div class="bento">
+      <div class="bc big"><span class="grp">Hằng ngày</span><h3>Đăng nhập là biết hôm nay làm gì</h3><p>14 vai, mỗi vai một danh sách việc riêng, xếp theo hạn. Duyệt, nộp, nghiệm thu bằng một nút ngay tại chỗ.</p>
+        <div class="mv"><div class="row"><i></i><b>Phiếu TIF · KOHI CAFE</b><span class="pill p-r">Trễ 1 ngày</span><span class="btn">Duyệt TIF</span></div><div class="row"><i></i><b>9A · Nghiệm thu điện/nước tạm</b><span class="pill p-a">Hôm nay</span><span class="btn">Xem &amp; duyệt</span></div><div class="row"><i></i><b>6B · Cam kết an toàn điện</b><span class="pill p-b">Còn 1 ngày</span><span class="btn">Ký</span></div></div></div>
+      <div class="bc big dark"><span class="grp">Hằng ngày</span><h3>Sắp đến hạn thì báo, trễ hạn thì nhắc khách</h3><p>Mỗi ngày hệ thống kiểm tra hạn, báo trong app và qua email. Trễ 3 ngày lên TC Leader, 7 ngày lên PM.</p>
+        <div class="mv"><div class="steps"><div class="done"><u></u>5 ngày trước bàn giao · tự cảnh báo</div><div class="done"><u></u>Trễ 1 ngày · email nhắc ngay</div><div class="done"><u></u>Trễ 3 ngày · việc của TC Leader</div><div class="on"><u></u><b style="color:#fff">Trễ 7 ngày · việc của PM</b></div></div></div></div>
+      <div class="bc mid"><span class="grp">Hồ sơ</span><h3>Ký trực tiếp trên web</h3><p>Không cần in, không cần scan. Mỗi ô ký có người ký riêng, ký song song.</p>
+        <div class="mv sig"><svg viewBox="0 0 400 100"><path d="M40 70 C 38 40 50 14 66 14 C 78 14 74 40 60 58 C 50 70 52 80 64 76 C 90 68 120 44 150 48 C 172 52 160 74 180 70 C 204 64 216 38 244 42 C 268 46 256 70 276 66 C 296 62 316 48 360 30" fill="none" stroke="#1d3c6e" stroke-width="3" stroke-linecap="round"/></svg><span class="pill p-g">Đã ký</span></div></div>
+      <div class="bc mid"><span class="grp">Hồ sơ</span><h3>Gửi email ngay trên web</h3><p>Mẫu song ngữ có sẵn, tự CC đúng người, đính tài liệu từ thư viện.</p>
+        <div class="mv mail"><span>Đến: <em>Ms. Linh Nguyen</em></span><span>CC: lea · leader · pm · pccc</span><span>Tệp: <em>Tenant Design Guideline.pdf</em></span></div></div>
+      <div class="bc mid"><span class="grp">Hiện trường &amp; mặt bằng</span><h3>Ảnh tự có mã lô và ngày giờ</h3><p>Chụp xong là ảnh đã đóng dấu, vào nhật ký hằng ngày.</p>
+        <div class="mv"><div class="photo"><span>T121 · 14/10/2026 · 09:15 · Thứ Tư</span></div></div></div>
+      <div class="bc mid"><span class="grp">Hiện trường &amp; mặt bằng</span><h3>Lô tự động từ PDF mặt bằng</h3><p>Tải PDF, thuật toán nhận diện từng lô trong 7–10 giây.</p>
+        <div class="mv"><div class="plan"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
+      <div class="bc mid"><span class="grp">Quản lý</span><h3>PM, GM, TC Leader nắm cả dự án</h3><p>Dự báo khai trương 5 mức rủi ro, việc trễ, hồ sơ nội bộ đang giữ.</p>
+        <div class="mv"><div class="kp"><div><b>16<small>/24</small></b><small>Kịp khai trương</small></div><div><b style="color:#b91c1c">4</b><small>Đang trễ</small></div><div><b>5</b><small>PCCC chưa xong</small></div></div><div class="bar"><i style="width:38%;background:#0f8a5f"></i><i style="width:28%;background:#60a5fa"></i><i style="width:18%;background:#f59e0b"></i><i style="width:12%;background:#ea580c"></i><i style="width:4%;background:#dc2626"></i></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ B ============ -->
+<section class="sec alt">
+  <div class="wrap">
+    <span class="opt">Phương án B · Danh sách bên trái, panel lớn bên phải</span>
+    <div class="hd"><div class="eyebrow">Tính năng</div><h2>Chọn một việc, xem hệ thống làm thế nào.</h2></div>
+    <p class="why"><b>Ý tưởng:</b> cột trái là danh sách 7 tính năng chia 4 nhóm, bấm vào đâu panel nền navy bên phải đổi theo đó (mock này bấm được, đang có 3 tính năng đầu để xem cách hoạt động). Người xem tự chọn cái mình quan tâm thay vì phải bấm qua từng slide theo thứ tự. Trên iPad, danh sách chuyển lên trên thành hàng nút cuộn ngang.</p>
+    <div class="vt" id="vt">
+      <div class="vt-list" role="tablist">
+        <div class="grp vt-g">Hằng ngày</div>
+        <button class="vt-b" role="tab" aria-selected="true" data-t="0"><span class="num">1</span>Việc của tôi</button>
+        <button class="vt-b" role="tab" aria-selected="false" data-t="1"><span class="num">2</span>Nhắc hạn &amp; trễ hạn</button>
+        <div class="grp vt-g">Hồ sơ</div>
+        <button class="vt-b" role="tab" aria-selected="false" data-t="2"><span class="num">3</span>Ký trực tiếp trên web</button>
+        <button class="vt-b" role="tab" aria-selected="false" data-t="3"><span class="num">4</span>Gửi email trên web</button>
+        <div class="grp vt-g">Hiện trường &amp; mặt bằng</div>
+        <button class="vt-b" role="tab" aria-selected="false" data-t="4"><span class="num">5</span>Ảnh hiện trường</button>
+        <button class="vt-b" role="tab" aria-selected="false" data-t="5"><span class="num">6</span>Lô từ PDF mặt bằng</button>
+        <div class="grp vt-g">Quản lý</div>
+        <button class="vt-b" role="tab" aria-selected="false" data-t="6"><span class="num">7</span>Tổng quan cho quản lý</button>
+      </div>
+      <div>
+        <div class="vt-p on" data-p="0"><div><span class="grp">Hằng ngày</span><h3>Đăng nhập là biết hôm nay làm gì</h3><p>14 vai, mỗi vai một danh sách riêng, xếp theo hạn.</p><ul><li>Tự nhắc hằng ngày, quá hạn thì báo lên cấp trên</li><li>Bấm vào việc là mở đúng gian hàng, hồ sơ</li></ul></div>
+          <div class="mv"><div class="row"><i></i><b>Phiếu TIF · KOHI CAFE</b><span class="pill p-r">Trễ 1 ngày</span><span class="btn">Duyệt</span></div><div class="row"><i></i><b>9A · Nghiệm thu điện/nước</b><span class="pill p-a">Hôm nay</span><span class="btn">Xem</span></div><div class="row"><i></i><b>DFT-0412 · Thiếu ron chống thấm</b><span class="pill p-b">Còn 2 ngày</span><span class="btn">Bằng chứng</span></div><div class="row"><i></i><b>6B · Cam kết an toàn điện</b><span class="pill p-b">Còn 1 ngày</span><span class="btn">Ký</span></div></div></div>
+        <div class="vt-p" data-p="1"><div><span class="grp">Hằng ngày</span><h3>Sắp đến hạn thì báo, trễ hạn thì nhắc khách</h3><p>Hệ thống kiểm tra hạn mỗi ngày, TC bấm "Nhắc khách" là email ghi rõ form còn thiếu được gửi ngay.</p><ul><li>Tự cảnh báo 5 ngày trước bàn giao</li><li>Trễ 3 ngày lên TC Leader, 7 ngày lên PM</li></ul></div>
+          <div class="mv"><div class="steps"><div class="done"><u></u>5 ngày trước bàn giao · tự cảnh báo</div><div class="done"><u></u>Hạn nộp · hiện "Hôm nay"</div><div class="done"><u></u>Trễ 1 ngày · email nhắc ngay</div><div class="done"><u></u>Trễ 3 ngày · việc của TC Leader</div><div class="on"><u></u><b style="color:var(--ink)">Trễ 7 ngày · việc của PM</b></div></div></div></div>
+        <div class="vt-p" data-p="2"><div><span class="grp">Hồ sơ</span><h3>Ký trực tiếp trên web</h3><p>Không in, không scan. Mỗi ô ký có người ký riêng, nhiều người ký song song.</p><ul><li>Ký bằng chuột hoặc cảm ứng</li><li>Xem lại PDF đã ký rồi nộp</li></ul></div>
+          <div class="mv sig"><svg viewBox="0 0 400 100"><path d="M40 70 C 38 40 50 14 66 14 C 78 14 74 40 60 58 C 50 70 52 80 64 76 C 90 68 120 44 150 48 C 172 52 160 74 180 70 C 204 64 216 38 244 42 C 268 46 256 70 276 66 C 296 62 316 48 360 30" fill="none" stroke="#1d3c6e" stroke-width="3" stroke-linecap="round"/></svg><span class="pill p-g">Đại diện khách thuê · Đã ký</span></div></div>
+        <div class="vt-p" data-p="3"><div><span class="grp">Hồ sơ</span><h3>Gửi email ngay trên web</h3><p>Mẫu song ngữ có sẵn, chỉ điền vài ô.</p><ul><li>Tự CC đúng người theo dự án</li><li>Đính tài liệu từ thư viện bằng link tải</li></ul></div><div class="mv mail"><span>Đến: <em>Ms. Linh Nguyen</em></span><span>CC: lea · leader · pm · pccc</span><span>Tiêu đề: AMTH/ T304 MYKINGDOM/ INTRODUCTION</span><span>Tệp: <em>Fit-out Handbook.pdf</em></span></div></div>
+        <div class="vt-p" data-p="4"><div><span class="grp">Hiện trường &amp; mặt bằng</span><h3>Ảnh tự có mã lô và ngày giờ</h3><p>Chụp bằng camera iPad, đóng dấu ngay trên ảnh.</p><ul><li>Chỉ ảnh mới chụp được đóng dấu</li><li>Ảnh lớn tự được thu gọn</li></ul></div><div class="mv"><div class="photo"><span>T121 · 14/10/2026 · 09:15 · Thứ Tư</span></div></div></div>
+        <div class="vt-p" data-p="5"><div><span class="grp">Hiện trường &amp; mặt bằng</span><h3>Lô tự động từ PDF mặt bằng</h3><p>Tải PDF, thuật toán nhận diện lô trong 7–10 giây.</p><ul><li>Bảng so sánh trước khi áp dụng</li><li>Lô đã có gian hàng được khoá</li></ul></div><div class="mv"><div class="plan"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
+        <div class="vt-p" data-p="6"><div><span class="grp">Quản lý</span><h3>PM, GM, TC Leader nắm cả dự án</h3><p>Không phải hỏi từng TC.</p><ul><li>Dự báo khai trương 5 mức rủi ro</li><li>Việc trễ tự lên cấp trên</li></ul></div><div class="mv"><div class="kp"><div><b>16<small>/24</small></b><small>Kịp khai trương</small></div><div><b style="color:#b91c1c">4</b><small>Đang trễ</small></div><div><b>5</b><small>PCCC chưa xong</small></div></div><div class="bar"><i style="width:38%;background:#0f8a5f"></i><i style="width:28%;background:#60a5fa"></i><i style="width:18%;background:#f59e0b"></i><i style="width:12%;background:#ea580c"></i><i style="width:4%;background:#dc2626"></i></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ C ============ -->
+<section class="sec">
+  <div class="wrap">
+    <span class="opt">Phương án C · Dải thẻ cuộn ngang</span>
+    <div class="hd"><div class="eyebrow">Tính năng</div><h2>Bảy việc hệ thống làm thay bạn.</h2></div>
+    <p class="why"><b>Ý tưởng:</b> giữ cảm giác "lướt ngang" của dải slide nhưng thẻ nhỏ hơn, thấy lấp ló thẻ kế bên nên người xem biết còn nữa. Mỗi thẻ có nhãn màu theo nhóm. Trên iPad vuốt tay là xem, không có mũi tên che nội dung. Gọn nhất về chiều cao (khoảng 430px so với 720px của slide hiện tại).</p>
+    <div class="rail">
+      <div class="rc"><span class="tag t1">Hằng ngày</span><h3>Đăng nhập là biết hôm nay làm gì</h3><p>Danh sách việc riêng cho từng vai, xếp theo hạn.</p><div class="mv"><div class="row"><i></i><b>Phiếu TIF · KOHI CAFE</b><span class="pill p-r">Trễ 1 ngày</span></div><div class="row"><i></i><b>9A · Nghiệm thu điện/nước</b><span class="pill p-a">Hôm nay</span></div></div></div>
+      <div class="rc"><span class="tag t1">Hằng ngày</span><h3>Sắp đến hạn thì báo, trễ hạn thì nhắc</h3><p>Trễ 3 ngày lên TC Leader, 7 ngày lên PM.</p><div class="mv"><div class="steps"><div class="done"><u></u>5 ngày trước bàn giao</div><div class="done"><u></u>Trễ 1 ngày · email nhắc</div><div class="on"><u></u><b style="color:var(--ink)">Trễ 7 ngày · việc của PM</b></div></div></div></div>
+      <div class="rc"><span class="tag t2">Hồ sơ</span><h3>Ký trực tiếp trên web</h3><p>Không in, không scan, nhiều người ký song song.</p><div class="mv sig"><svg viewBox="0 0 400 100"><path d="M40 70 C 38 40 50 14 66 14 C 78 14 74 40 60 58 C 50 70 52 80 64 76 C 90 68 120 44 150 48 C 172 52 160 74 180 70 C 204 64 216 38 244 42 C 268 46 256 70 276 66 C 296 62 316 48 360 30" fill="none" stroke="#1d3c6e" stroke-width="3" stroke-linecap="round"/></svg></div></div>
+      <div class="rc"><span class="tag t2">Hồ sơ</span><h3>Gửi email ngay trên web</h3><p>Mẫu song ngữ, tự CC, đính tài liệu từ thư viện.</p><div class="mv mail"><span>Đến: <em>Ms. Linh Nguyen</em></span><span>CC: lea · leader · pm · pccc</span></div></div>
+      <div class="rc"><span class="tag t3">Hiện trường &amp; mặt bằng</span><h3>Ảnh tự có mã lô và ngày giờ</h3><p>Chụp xong là có dấu, vào nhật ký hằng ngày.</p><div class="mv"><div class="photo"><span>T121 · 14/10/2026 · 09:15</span></div></div></div>
+      <div class="rc"><span class="tag t3">Hiện trường &amp; mặt bằng</span><h3>Lô tự động từ PDF mặt bằng</h3><p>Nhận diện lô chỉ trong 7–10 giây.</p><div class="mv"><div class="plan"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
+      <div class="rc"><span class="tag t4">Quản lý</span><h3>Nắm cả dự án trên một màn hình</h3><p>Dự báo khai trương, việc trễ, hồ sơ nội bộ.</p><div class="mv"><div class="kp"><div><b>16<small>/24</small></b><small>Kịp</small></div><div><b style="color:#b91c1c">4</b><small>Trễ</small></div><div><b>5</b><small>PCCC</small></div></div></div></div>
+    </div>
+    <p class="hint">← vuốt / cuộn ngang →</p>
+  </div>
+</section>
+
+<script>
+var tabs=document.querySelectorAll(".vt-b"),ps=document.querySelectorAll(".vt-p");
+tabs.forEach(function(b){b.addEventListener("click",function(){var t=b.getAttribute("data-t");tabs.forEach(function(x){x.setAttribute("aria-selected",x===b?"true":"false")});ps.forEach(function(p){p.classList.toggle("on",p.getAttribute("data-p")===t)});if(!document.querySelector('.vt-p[data-p="'+t+'"]')){ps.forEach(function(p){p.classList.remove("on")})}})});
+</script>
+</body>
+</html>

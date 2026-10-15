@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mock · Mục Chi phí</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+/* MOCK tĩnh — chưa phải trang cuối. Cùng tông với trang giới thiệu: xanh #2563eb, nền #f4f6f9, navy #0f1d4a. */
+:root{--paper:#f4f6f9;--card:#fff;--ink:#0f172a;--body:#475569;--muted:#64748b;--line:#e2e8f0;--accent:#2563eb;--accent2:#1d4ed8;--soft:#dbeafe;--night:#0f1d4a;--ok:#0f8a5f;--okbg:#ddf3ea;--bad:#c2410c;--f:"Plus Jakarta Sans",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--body);font:16px/1.6 var(--f);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+h1,h2,h3{color:var(--ink);margin:0;line-height:1.25}
+.top{background:#fff;border-bottom:1px solid var(--line);padding:16px 0;font-size:13px;color:var(--muted)}
+.top b{color:var(--ink)}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.sec{padding:56px 0}
+.sec.alt{background:#fff;border-block:1px solid var(--line)}
+.opt{display:inline-flex;align-items:center;gap:8px;background:var(--soft);color:var(--accent2);font-weight:800;font-size:13px;padding:4px 14px;border-radius:99px;margin-bottom:14px}
+.why{font-size:15px;max-width:48em;margin:10px 0 28px}
+.why b{color:var(--ink)}
+/* shared widgets */
+.seg{display:inline-flex;background:rgba(15,23,42,.07);border-radius:999px;padding:4px;gap:2px}
+.seg button{font:700 14px var(--f);border:0;background:transparent;color:var(--body);border-radius:999px;padding:0 16px;height:40px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--accent);color:#fff}
+.lab{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px;display:flex;justify-content:space-between}
+.lab em{font-style:normal;font-weight:500;color:var(--muted)}
+.field{display:flex;align-items:center;border:1px solid var(--line);background:#fff;border-radius:12px;height:48px;padding:0 14px;gap:8px}
+.field input{border:0;outline:0;font:700 18px var(--f);color:var(--ink);width:100%;background:transparent}
+.field span{color:var(--muted);font-weight:700;font-size:14px;white-space:nowrap}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.chips button{font:600 13px var(--f);border:1px solid var(--line);background:#fff;color:var(--body);border-radius:99px;height:34px;padding:0 14px;cursor:pointer}
+.chips button.on{background:var(--soft);border-color:var(--accent);color:var(--accent2)}
+.stepper{display:inline-flex;align-items:center;border:1px solid var(--line);background:#fff;border-radius:12px;height:48px}
+.stepper button{width:48px;height:46px;border:0;background:transparent;font:700 22px var(--f);color:var(--accent2);cursor:pointer}
+.stepper b{min-width:44px;text-align:center;color:var(--ink);font-size:20px}
+.note{font-size:12.5px;color:var(--muted);margin-top:14px}
+/* ===== A ===== */
+.a{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px;align-items:stretch}
+.panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px}
+.panel.dark{background:var(--night);border-color:var(--night);color:#c7d2f0}
+.stack{display:grid;gap:22px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.bars{display:grid;gap:18px;margin:6px 0 22px}
+.bar .t{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px}
+.bar .t b{color:#fff;font-size:18px}
+.bar .tr{height:16px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
+.bar .fl{height:100%;border-radius:99px}
+.save{display:flex;align-items:center;justify-content:space-between;gap:16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:18px 20px}
+.save .big{font-size:34px;font-weight:800;color:#6ee7b7;line-height:1.1}
+.save small{display:block;color:#a5b4d8;font-size:13px}
+.pill{background:#6ee7b7;color:#064e3b;font-weight:800;border-radius:99px;padding:6px 14px;font-size:15px;white-space:nowrap}
+.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.mini div{background:rgba(255,255,255,.06);border-radius:12px;padding:12px 14px}
+.mini b{display:block;color:#fff;font-size:16px}
+.mini span{font-size:12.5px;color:#a5b4d8}
+/* ===== B ===== */
+.b{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:24px}
+.plans{display:grid;gap:14px}
+.plan{border:1.5px solid var(--line);border-radius:18px;padding:20px 22px;background:#fff;cursor:pointer}
+.plan.sel{border-color:var(--accent);box-shadow:0 0 0 4px rgba(37,99,235,.1)}
+.plan h3{font-size:16px;display:flex;justify-content:space-between;align-items:center}
+.tag{font-size:11.5px;background:var(--soft);color:var(--accent2);border-radius:99px;padding:2px 10px;font-weight:800}
+.price{font-size:30px;font-weight:800;color:var(--ink);margin:6px 0 2px}
+.price small{font-size:14px;color:var(--muted);font-weight:600}
+.plan ul{margin:10px 0 0;padding-left:18px;font-size:14px}
+.chart text{font-family:var(--f)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;margin-top:8px}
+.legend i{display:inline-block;width:14px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.kpis div{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:#f8fafc}
+.kpis b{display:block;color:var(--ink);font-size:18px}
+.kpis span{font-size:12.5px;color:var(--muted)}
+.kpis .g b{color:var(--ok)}
+.chiprow{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.chiprow span{border:1px solid var(--line);background:#fff;border-radius:99px;padding:6px 14px;font-size:13px;font-weight:700;color:var(--ink)}
+.diff{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.diff ul{margin:8px 0 0;padding-left:18px;font-size:15px}
+@media(max-width:900px){.a,.b,.diff{grid-template-columns:1fr}.mini,.kpis{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap"><b>MOCK</b> · Mục Chi phí (bản VND) · tĩnh, số liệu ví dụ: 3 dự án · 3 năm · chi phí hiện tại 60 triệu ₫/dự án/tháng · tỷ giá 1 USD ≈ 25.500 ₫</div></div>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="eyebrow">Đang có → đề xuất</div>
+    <h1 style="font-size:32px;margin-top:8px">Mục Chi phí: bỏ số khổng lồ, cho thấy kết quả ngay</h1>
+    <div class="diff" style="margin-top:22px">
+      <div class="panel"><h3>Vấn đề bản hiện tại</h3>
+        <ul>
+          <li>Số tiền VND dài 13 chữ số (<b>4.865.400.000 VND</b>) khó đọc, tràn dòng.</li>
+          <li>Chưa nhập thì cột kết quả trống, chỉ có chữ "Nhập chi phí hiện tại" to đùng.</li>
+          <li>Phải kéo xuống mới thấy hai gói, hai nửa màn hình không liên quan nhau.</li>
+          <li>Không thấy sự chênh lệch bằng hình, chỉ có hai con số.</li>
+        </ul></div>
+      <div class="panel"><h3>Đề xuất chung cho cả 2 phương án</h3>
+        <ul>
+          <li>Đọc gọn: <b>4,87 tỷ ₫</b>, <b>730 triệu ₫</b> (tiếng Nhật: <b>4億8,654万円</b>). Số đầy đủ hiện khi rê/chạm.</li>
+          <li>Luôn có kết quả: mặc định điền sẵn ví dụ, người dùng chỉ việc sửa.</li>
+          <li>Chọn số dự án/số năm bằng nút +/− và nút chọn nhanh thay thanh trượt (chạm iPad dễ hơn).</li>
+          <li>Kết quả nói bằng hình: thanh so sánh hoặc đường lũy kế.</li>
+        </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ A ============ -->
+<section class="sec alt">
+  <div class="wrap">
+    <span class="opt">Phương án A · Nhập → so sánh ngay</span>
+    <h2 style="font-size:30px">Dễ dùng hơn, chi phí thấp hơn.</h2>
+    <p class="why"><b>Ý tưởng:</b> một thẻ tính toán, bên trái là 3 ô nhập gọn, bên phải là kết quả bằng hai thanh so sánh + số tiền tiết kiệm. Giữ cách làm quen thuộc của bản hiện tại nhưng đọc nhanh hơn.</p>
+    <div class="a">
+      <div class="panel stack">
+        <div>
+          <div class="lab">Số dự án</div>
+          <div class="stepper"><button>−</button><b>3</b><button>+</button></div>
+        </div>
+        <div>
+          <div class="lab">Số năm sử dụng</div>
+          <div class="seg"><button aria-pressed="false">1</button><button aria-pressed="false">2</button><button aria-pressed="true">3</button><button aria-pressed="false">4</button><button aria-pressed="false">5</button></div>
+        </div>
+        <div>
+          <div class="lab">Chi phí hiện tại / dự án / tháng <em>chưa VAT</em></div>
+          <div class="field"><input value="60.000.000" aria-label="Chi phí hiện tại"><span>VND</span></div>
+          <div class="chips"><button>30 triệu</button><button>45 triệu</button><button class="on">60 triệu</button><button>90 triệu</button></div>
+        </div>
+        <p class="note" style="margin:0">Số bạn nhập chỉ tính trong trang này, không gửi đi đâu. Tỷ giá tham khảo 1 USD ≈ 25.500 ₫; giá hợp đồng tính bằng USD.</p>
+      </div>
+      <div class="panel dark">
+        <div style="font-size:13px;letter-spacing:.14em;font-weight:700;text-transform:uppercase;color:#93c5fd;margin-bottom:16px">Tổng chi phí 3 dự án · 3 năm</div>
+        <div class="bars">
+          <div class="bar"><div class="t"><span>Chi phí hiện tại</span><b>6,48 tỷ ₫</b></div><div class="tr"><div class="fl" style="width:100%;background:#64748b"></div></div></div>
+          <div class="bar"><div class="t"><span>Retail PM thuê theo tháng</span><b>4,87 tỷ ₫</b></div><div class="tr"><div class="fl" style="width:75%;background:#60a5fa"></div></div></div>
+        </div>
+        <div class="save">
+          <div><small>Bạn tiết kiệm</small><div class="big">1,61 tỷ ₫</div></div>
+          <span class="pill">−25%</span>
+        </div>
+        <div class="mini">
+          <div><b>Năm 1</b><span>51 triệu ₫ / dự án / tháng</span></div>
+          <div><b>Năm 2</b><span>45,9 triệu ₫ / dự án / tháng</span></div>
+          <div><b>Năm 3+</b><span>38,25 triệu ₫ / dự án / tháng</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="chiprow"><span>✓ Khoá giá 5 năm</span><span>✓ Triển khai dự án mới miễn phí</span><span>✓ Xuất toàn bộ dữ liệu bất cứ lúc nào</span><span>✓ Không vốn ban đầu, tối thiểu 12 tháng</span></div>
+  </div>
+</section>
+
+<!-- ============ B ============ -->
+<section class="sec">
+  <div class="wrap">
+    <span class="opt">Phương án B · Chọn gói → xem đường hoà vốn</span>
+    <h2 style="font-size:30px">Dễ dùng hơn, chi phí thấp hơn.</h2>
+    <p class="why"><b>Ý tưởng:</b> gộp luôn hai gói vào bên trái (chọn được), bên phải là đường chi phí lũy kế theo năm — người xem thấy khoảng cách giữa "đang trả" và "Retail PM" mở rộng dần, và biết ngay năm nào có lời. Hợp với người ra quyết định (GM, giám đốc tài chính).</p>
+    <div class="b">
+      <div class="panel" style="padding:22px">
+        <div class="row2" style="margin-bottom:18px">
+          <div><div class="lab">Số dự án</div><div class="stepper"><button>−</button><b>3</b><button>+</button></div></div>
+          <div><div class="lab">Số năm</div><div class="seg"><button aria-pressed="false">1</button><button aria-pressed="false">2</button><button aria-pressed="true">3</button><button aria-pressed="false">5</button></div></div>
+        </div>
+        <div class="lab">Chi phí hiện tại / dự án / tháng</div>
+        <div class="field" style="margin-bottom:22px"><input value="60.000.000" aria-label="Chi phí hiện tại"><span>VND</span></div>
+        <div class="plans">
+          <div class="plan sel">
+            <h3>Thuê theo tháng <span class="tag">Khuyến nghị</span></h3>
+            <div class="price">51 triệu ₫ <small>/ dự án / tháng, năm 1</small></div>
+            <div style="font-size:13.5px;color:var(--muted)">Năm 2: 45,9 triệu ₫ · từ năm 3: 38,25 triệu ₫</div>
+            <ul><li>Không vốn ban đầu, tối thiểu 12 tháng</li><li>Đã gồm hosting, bảo trì, hỗ trợ, 40 giờ chỉnh sửa/tháng</li><li>Chuyển sang mua bất cứ lúc nào, trừ 50% tiền thuê đã trả</li></ul>
+          </div>
+          <div class="plan">
+            <h3>Mua đứt</h3>
+            <div class="price">2,42 tỷ ₫ <small>một lần</small></div>
+            <div style="font-size:13.5px;color:var(--muted)">30% khi ký · 40% bàn giao · 30% nghiệm thu · bảo trì 38,25 triệu ₫/tháng × 36 tháng</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
+          <h3 style="font-size:17px">Chi phí lũy kế (3 dự án)</h3>
+          <span class="tag" style="background:var(--okbg);color:var(--ok)">Tiết kiệm 1,61 tỷ ₫ · −25%</span>
+        </div>
+        <svg class="chart" viewBox="0 0 520 300" width="100%" role="img" aria-label="Chi phí lũy kế theo năm">
+          <g stroke="#e2e8f0" stroke-width="1"><line x1="56" y1="30" x2="500" y2="30"/><line x1="56" y1="90" x2="500" y2="90"/><line x1="56" y1="150" x2="500" y2="150"/><line x1="56" y1="210" x2="500" y2="210"/><line x1="56" y1="250" x2="500" y2="250" stroke="#94a3b8"/></g>
+          <g font-size="11.5" fill="#64748b" text-anchor="end"><text x="48" y="254">0</text><text x="48" y="214">2 tỷ</text><text x="48" y="154">4 tỷ</text><text x="48" y="94">6 tỷ</text></g>
+          <g font-size="12.5" fill="#475569" text-anchor="middle"><text x="130" y="272">Năm 1</text><text x="278" y="272">Năm 2</text><text x="426" y="272">Năm 3</text></g>
+          <!-- cumulative: current 2.16 / 4.32 / 6.48 ; rent 1.84 / 3.49 / 4.87 ; scale 60px per 2 tỷ -->
+          <polygon points="130,185 278,120 426,56 426,104 278,145 130,195" fill="#6ee7b7" opacity=".22"/>
+          <polyline points="56,250 130,185 278,120 426,56" fill="none" stroke="#64748b" stroke-width="3" stroke-linejoin="round"/>
+          <polyline points="56,250 130,195 278,145 426,104" fill="none" stroke="#2563eb" stroke-width="4" stroke-linejoin="round"/>
+          <g fill="#64748b"><circle cx="130" cy="185" r="4.5"/><circle cx="278" cy="120" r="4.5"/><circle cx="426" cy="56" r="4.5"/></g>
+          <g fill="#2563eb"><circle cx="130" cy="195" r="5"/><circle cx="278" cy="145" r="5"/><circle cx="426" cy="104" r="5"/></g>
+          <g font-size="12.5" font-weight="700"><text x="426" y="44" text-anchor="middle" fill="#475569">6,48 tỷ</text><text x="426" y="124" text-anchor="middle" fill="#1d4ed8">4,87 tỷ</text></g>
+          <g font-size="12" font-weight="800" fill="#0f8a5f" text-anchor="middle"><rect x="446" y="68" width="62" height="22" rx="11" fill="#ddf3ea"/><text x="477" y="83">−1,61 tỷ</text></g>
+        </svg>
+        <div class="legend"><span><i style="background:#64748b"></i>Chi phí hiện tại</span><span><i style="background:#2563eb"></i>Retail PM thuê theo tháng</span></div>
+        <div class="kpis">
+          <div class="g"><b>Năm 1: −0,32 tỷ</b><span>đã rẻ hơn ngay năm đầu</span></div>
+          <div class="g"><b>Năm 2: −0,83 tỷ</b><span>chênh lệch cộng dồn</span></div>
+          <div class="g"><b>Năm 3: −1,61 tỷ</b><span>giá thuê giảm còn 38,25 triệu ₫</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="chiprow"><span>✓ Khoá giá 5 năm</span><span>✓ Triển khai dự án mới miễn phí</span><span>✓ Xuất toàn bộ dữ liệu bất cứ lúc nào</span></div>
+  </div>
+</section>
+
+<section class="sec alt">
+  <div class="wrap">
+    <h3 style="font-size:20px">So hai phương án</h3>
+    <div class="diff" style="margin-top:14px">
+      <div class="panel"><h3>A — Nhập → so sánh</h3><ul><li>Gọn, đọc trong 3 giây, ít thay đổi so với bản hiện tại.</li><li>Gói Mua đứt bị đẩy ra ngoài thẻ (chỉ còn trong dòng chip).</li><li>Hợp khi mục này chỉ để chốt "rẻ hơn bao nhiêu".</li></ul></div>
+      <div class="panel"><h3>B — Chọn gói → đường hoà vốn</h3><ul><li>Kể được câu chuyện "càng dùng lâu càng lợi", có cả hai gói.</li><li>Nhiều thông tin hơn, cần thêm chỗ trên màn hình (cao ~560px).</li><li>Hợp khi người xem là quản lý cấp cao cần số liệu để duyệt.</li></ul></div>
+    </div>
+    <p class="note">Cả hai đều làm được với JPY (chữ <b>億/万円</b>) và USD. Bạn chọn A, B, hoặc lấy phần nào của mỗi bên (ví dụ thanh so sánh của A + hai gói của B) thì tôi mới code.</p>
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mock · Khối tính năng có clip</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap">
+<style>
+/* MOCK khối mẫu: clip thao tác thật (dữ liệu giả) + ảnh chụp, chuyển Web / iPad. Nền sáng xen tối, 1 màu nhấn xanh. */
+:root{--paper:#f6f7f9;--card:#fff;--ink:#0f172a;--body:#3a4456;--muted:#6b7588;--line:#e3e7ee;--accent:#0b5fa5;--soft:#e6f0fa;--night:#0a111d;--f:"Be Vietnam Pro",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--body);font:16px/1.7 var(--f);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px}
+h2,h3{color:var(--ink);margin:0;line-height:1.25;text-wrap:balance}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.top{padding:18px 0;border-bottom:1px solid var(--line);background:#fff}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-weight:800;color:var(--ink);font-size:18px}.brand b{color:var(--accent)}
+.note{font-size:12px;color:var(--muted)}
+
+.feat{padding:84px 0}
+.feat.dark{background:var(--night);color:#b6c2d6}
+.feat.dark h2,.feat.dark h3{color:#fff}
+.feat.dark .eyebrow{color:#7cb8ee}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.head h2{font-size:clamp(26px,3.6vw,42px);font-weight:800;max-width:15em;margin-top:10px}
+.head p{margin:12px 0 0;max-width:36em;font-size:17px}
+
+/* nút chuyển thiết bị */
+.sw{display:inline-flex;background:rgba(15,23,42,.07);border-radius:999px;padding:4px}
+.dark .sw{background:rgba(255,255,255,.1)}
+.sw button{font:700 14px var(--f);border:0;background:transparent;color:inherit;border-radius:999px;padding:9px 20px;min-height:44px;cursor:pointer}
+.sw button[aria-pressed=true]{background:var(--accent);color:#fff}
+
+/* sân khấu */
+.stage{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:28px;align-items:start}
+.dev{display:none}
+.dev.on{display:block}
+.shell{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(11,40,80,.45)}
+.dark .shell{border-color:#1d2a40;box-shadow:0 40px 90px -30px rgba(0,0,0,.8)}
+.bar{display:flex;gap:7px;align-items:center;padding:11px 14px;background:#eef1f5;border-bottom:1px solid var(--line)}
+.bar i{width:11px;height:11px;border-radius:50%;background:#cbd2dc}
+.bar span{margin-left:12px;flex:1;max-width:340px;background:#fff;border-radius:7px;font-size:12px;color:var(--muted);padding:3px 12px}
+video,.shell img{display:block;width:100%;height:auto;background:#f1f4f8}
+/* khung iPad */
+.ipad{background:#161b25;border-radius:34px;padding:18px;box-shadow:0 40px 90px -30px rgba(0,0,0,.7),inset 0 0 0 2px #2a3342}
+.ipad video,.ipad img{border-radius:14px}
+.ipad.light{background:#0e1420}
+.tag{display:inline-flex;gap:8px;align-items:center;margin-top:14px;font-size:13px;color:var(--muted)}
+.dark .tag{color:#8fa0b8}
+.tag b{background:var(--soft);color:var(--accent);padding:2px 10px;border-radius:99px;font-size:12px}
+.dark .tag b{background:rgba(124,184,238,.16);color:#9ccbf5}
+
+.side{display:grid;gap:22px}
+.pt{display:flex;gap:14px}
+.pt em{font-style:normal;flex:none;width:34px;height:34px;border-radius:50%;background:var(--soft);color:var(--accent);display:grid;place-items:center;font-weight:800;font-size:14px}
+.dark .pt em{background:rgba(124,184,238,.16);color:#9ccbf5}
+.pt h3{font-size:17px;margin-bottom:2px}
+.pt p{margin:0;font-size:15px}
+.stills{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+.stills .shell img{aspect-ratio:auto}
+.cap{font-size:13px;color:var(--muted);margin-top:8px}
+.dark .cap{color:#8fa0b8}
+@media(max-width:900px){.stage{grid-template-columns:1fr}.stills{grid-template-columns:1fr}.feat{padding:56px 0}}
+@media(prefers-reduced-motion:reduce){video{animation:none}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap"><span class="brand">Retail<b>PM</b></span><span class="note">MOCK khối mẫu · clip quay từ app thật, dữ liệu giả · chưa phải trang cuối</span></div></div>
+
+<section class="feat" id="f-plan" data-feat>
+  <div class="wrap">
+    <div class="head"><div><div class="eyebrow">Dành cho Admin · Mở dự án mới</div><h2>Tải PDF mặt bằng lên — hệ thống tự quét ra từng lô.</h2><p>Mã lô, diện tích (m²) và ranh giới được đọc thẳng từ bản vẽ, thay cho việc nhập tay hàng chục lô mỗi tầng.</p></div>
+      <div class="sw" role="group" aria-label="Thiết bị"><button type="button" aria-pressed="true" data-d="web">Laptop</button><button type="button" aria-pressed="false" data-d="ipad">iPad</button></div></div>
+    <div class="stage"><div>
+      <div class="dev on" data-d="web"><div class="shell"><div class="bar"><i></i><i></i><i></i><span>retail-pm · Cấu hình dự án</span></div><video muted loop playsinline preload="metadata" poster="clips/web-plan.jpg" data-src="clips/web-plan.mp4"></video></div></div>
+      <div class="dev" data-d="ipad"><div class="ipad"><video muted loop playsinline preload="none" poster="clips/ipad-plan.jpg" data-src="clips/ipad-plan.mp4"></video></div></div>
+    </div><div class="side">
+      <div class="pt"><em>1</em><div><h3>Chọn PDF, hệ thống đọc trong vài giây</h3><p>Có thanh tiến độ; tầng điển hình ra hàng chục lô.</p></div></div>
+      <div class="pt"><em>2</em><div><h3>Bảng so sánh trước khi áp dụng</h3><p>Lô mới, lô đổi, lô còn giữ nguyên; mỗi dòng có mức khớp diện tích.</p></div></div>
+      <div class="pt"><em>3</em><div><h3>Chưa bấm Áp dụng thì chưa có gì đổi</h3><p>Lô đang có gian hàng hoặc lỗi ghim được khoá, không bị ghi đè.</p></div></div>
+    </div></div>
+  </div></section>
+
+<section class="feat " id="f-tc" data-feat>
+  <div class="wrap">
+    <div class="head"><div><div class="eyebrow">Dành cho TC · Điều phối khách thuê</div><h2>Một màn hình cho mọi gian hàng — biết ngay ai đang kẹt ở đâu.</h2><p>Từ danh sách gian hàng tới từng hồ sơ và bản vẽ: mở một gian hàng là thấy 7 giai đoạn, việc cần làm tiếp theo và hạn của từng việc.</p></div>
+      <div class="sw" role="group" aria-label="Thiết bị"><button type="button" aria-pressed="true" data-d="web">Laptop</button><button type="button" aria-pressed="false" data-d="ipad">iPad</button></div></div>
+    <div class="stage"><div>
+      <div class="dev on" data-d="web"><div class="shell"><div class="bar"><i></i><i></i><i></i><span>retail-pm</span></div><video muted loop playsinline preload="none" poster="clips/web-tc.jpg" data-src="clips/web-tc.mp4"></video></div></div>
+      <div class="dev" data-d="ipad"><div class="ipad"><video muted loop playsinline preload="none" poster="clips/ipad-tc.jpg" data-src="clips/ipad-tc.mp4"></video></div></div>
+    </div><div class="side"><div class="pt"><em>1</em><div><h3>Thanh 7 giai đoạn</h3><p>Xanh là đúng hạn, xanh dương là đang làm, đỏ là trễ — nhìn một dòng là biết.</p></div></div><div class="pt"><em>2</em><div><h3>Việc tiếp theo có nút bấm ngay</h3><p>“Xem & duyệt”, “Nhắc khách”, “Hỏi PCCC” nằm đúng chỗ.</p></div></div><div class="pt"><em>3</em><div><h3>Hồ sơ và bản vẽ cùng một nơi</h3><p>Biểu mẫu, bản vẽ Concept/Detail, giấy phép — mỗi bản có trạng thái và người đang giữ.</p></div></div></div></div>
+  </div></section>
+<section class="feat" id="f-mail" data-feat>
+  <div class="wrap">
+    <div class="head"><div><div class="eyebrow">Bước đầu tiên với khách thuê</div><h2>Soạn thư giới thiệu song ngữ ngay trong hệ thống, không cần mở Gmail.</h2><p>Thư có sẵn form cố định (EN và VI): chỉ điền tên khách, chọn tài liệu từ thư viện. Cc đúng người theo dự án.</p></div>
+      <div class="sw" role="group" aria-label="Thiết bị"><button type="button" aria-pressed="true" data-d="web">Laptop</button><button type="button" aria-pressed="false" data-d="ipad">iPad</button></div></div>
+    <div class="stage"><div>
+      <div class="dev on" data-d="web"><div class="shell"><div class="bar"><i></i><i></i><i></i><span>retail-pm</span></div><video muted loop playsinline preload="none" poster="clips/web-mail.jpg" data-src="clips/web-mail.mp4"></video></div></div>
+      <div class="dev" data-d="ipad"><div class="ipad"><video muted loop playsinline preload="none" poster="clips/ipad-mail.jpg" data-src="clips/ipad-mail.mp4"></video></div></div>
+    </div><div class="side"><div class="pt"><em>1</em><div><h3>Form cố định, điền vài ô</h3><p>Tên khách, tên TC, tên dự án, gian hàng — điền một lần, EN và VI cùng cập nhật.</p></div></div><div class="pt"><em>2</em><div><h3>Đính tài liệu từ thư viện</h3><p>Chọn tệp hoặc cả thư mục; khách bấm link là tải được.</p></div></div><div class="pt"><em>3</em><div><h3>Ghi nhận đã gửi</h3><p>Hệ thống lưu giờ gửi, việc “gửi thư” trong Việc của tôi tự hoàn thành.</p></div></div></div></div>
+  </div></section>
+<section class="feat " id="f-scan" data-feat>
+  <div class="wrap">
+    <div class="head"><div><div class="eyebrow">Nộp hồ sơ</div><h2>Nộp biểu mẫu bằng bản scan PDF kèm ảnh — hoặc ký xác nhận online.</h2><p>Kéo thả PDF hoặc ảnh, chụp ảnh ngay trên iPad; biên bản nghiệm thu bắt buộc kèm ảnh hoàn thiện.</p></div>
+      <div class="sw" role="group" aria-label="Thiết bị"><button type="button" aria-pressed="true" data-d="web">Laptop</button><button type="button" aria-pressed="false" data-d="ipad">iPad</button></div></div>
+    <div class="stage"><div>
+      <div class="dev on" data-d="web"><div class="shell"><div class="bar"><i></i><i></i><i></i><span>retail-pm</span></div><video muted loop playsinline preload="none" poster="clips/web-scan.jpg" data-src="clips/web-scan.mp4"></video></div></div>
+      <div class="dev" data-d="ipad"><div class="ipad"><video muted loop playsinline preload="none" poster="clips/ipad-scan.jpg" data-src="clips/ipad-scan.mp4"></video></div></div>
+    </div><div class="side"><div class="pt"><em>1</em><div><h3>Kéo thả hoặc chụp</h3><p>PDF, JPG, PNG, WEBP; tối đa 5 tệp một lần nộp.</p></div></div><div class="pt"><em>2</em><div><h3>Ký online thay cho bản scan</h3><p>Tick một ô là ký xác nhận, không cần in rồi quét.</p></div></div><div class="pt"><em>3</em><div><h3>Nhắc đúng điều kiện</h3><p>Form nào cần ảnh, form nào cần bản scan có dấu — hiện ngay trên popup.</p></div></div></div></div>
+  </div></section>
+<section class="feat" id="f-gate" data-feat>
+  <div class="wrap">
+    <div class="head"><div><div class="eyebrow">Cổng giai đoạn</div><h2>Thiếu điều kiện thì chưa qua bước — và biết rõ thiếu gì, của ai.</h2><p>Điều kiện bàn giao mặt bằng hiện thành danh sách: mục nào đạt, mục nào còn thiếu, ai đang giữ, hạn bao giờ.</p></div>
+      <div class="sw" role="group" aria-label="Thiết bị"><button type="button" aria-pressed="true" data-d="web">Laptop</button><button type="button" aria-pressed="false" data-d="ipad">iPad</button></div></div>
+    <div class="stage"><div>
+      <div class="dev on" data-d="web"><div class="shell"><div class="bar"><i></i><i></i><i></i><span>retail-pm</span></div><video muted loop playsinline preload="none" poster="clips/web-gate.jpg" data-src="clips/web-gate.mp4"></video></div></div>
+      <div class="dev" data-d="ipad"><div class="ipad"><video muted loop playsinline preload="none" poster="clips/ipad-gate.jpg" data-src="clips/ipad-gate.mp4"></video></div></div>
+    </div><div class="side"><div class="pt"><em>1</em><div><h3>Mỗi điều kiện có người chịu trách nhiệm</h3><p>Khách thuê, LEA, nhà thầu PCCC — ghi rõ từng dòng.</p></div></div><div class="pt"><em>2</em><div><h3>Nhắc đúng người, đúng việc</h3><p>Nút nhắc nằm ngay cạnh mục còn thiếu.</p></div></div><div class="pt"><em>3</em><div><h3>Tiến trình PCCC 5 bước</h3><p>Basic Layout tới lắp đặt hoàn tất, theo dõi trên cùng màn hình.</p></div></div></div></div>
+  </div></section>
+<section class="feat " id="f-map" data-feat>
+  <div class="wrap">
+    <div class="head"><div><div class="eyebrow">Dành cho PM · GM</div><h2>Bản đồ mặt bằng tô màu theo giai đoạn của từng gian hàng.</h2><p>Chọn tầng là thấy ngay gian hàng nào đang ở bước nào; chú giải đếm số lượng theo từng giai đoạn.</p></div>
+      <div class="sw" role="group" aria-label="Thiết bị"><button type="button" aria-pressed="true" data-d="web">Laptop</button><button type="button" aria-pressed="false" data-d="ipad">iPad</button></div></div>
+    <div class="stage"><div>
+      <div class="dev on" data-d="web"><div class="shell"><div class="bar"><i></i><i></i><i></i><span>retail-pm</span></div><video muted loop playsinline preload="none" poster="clips/web-map.jpg" data-src="clips/web-map.mp4"></video></div></div>
+      <div class="dev" data-d="ipad"><div class="ipad"><video muted loop playsinline preload="none" poster="clips/ipad-map.jpg" data-src="clips/ipad-map.mp4"></video></div></div>
+    </div><div class="side"><div class="pt"><em>1</em><div><h3>Một màu một giai đoạn</h3><p>Từ Thông tin (TIF) tới Hoàn tất fit-out, kèm số lượng.</p></div></div><div class="pt"><em>2</em><div><h3>Phóng to, tìm kiếm, in</h3><p>Bản vẽ mặt bằng thật, phóng to xem từng lô.</p></div></div><div class="pt"><em>3</em><div><h3>Chuyển tầng một chạm</h3><p>Tầng hầm đến tầng 5.</p></div></div></div></div>
+  </div></section>
+<section class="feat" id="f-khach" data-feat>
+  <div class="wrap">
+    <div class="head"><div><div class="eyebrow">Dành cho khách thuê</div><h2>Khách biết mình cần nộp gì, trước ngày nào — và nộp ngay trên màn hình.</h2><p>Trang của khách chỉ có việc của riêng họ: điều kiện bàn giao, việc cần làm, hồ sơ PCCC; bấm “Xem & nộp” là mở đúng form.</p></div>
+      <div class="sw" role="group" aria-label="Thiết bị"><button type="button" aria-pressed="true" data-d="web">Laptop</button><button type="button" aria-pressed="false" data-d="ipad">iPad</button></div></div>
+    <div class="stage"><div>
+      <div class="dev on" data-d="web"><div class="shell"><div class="bar"><i></i><i></i><i></i><span>retail-pm</span></div><video muted loop playsinline preload="none" poster="clips/web-khach.jpg" data-src="clips/web-khach.mp4"></video></div></div>
+      <div class="dev" data-d="ipad"><div class="ipad"><video muted loop playsinline preload="none" poster="clips/ipad-khach.jpg" data-src="clips/ipad-khach.mp4"></video></div></div>
+    </div><div class="side"><div class="pt"><em>1</em><div><h3>Điều kiện bàn giao 2/7 đạt</h3><p>Mục nào đạt, mục nào chờ ai, hạn bao nhiêu ngày.</p></div></div><div class="pt"><em>2</em><div><h3>Việc cần làm có hạn</h3><p>Trễ hay còn bao ngày hiện ngay cạnh nút nộp.</p></div></div><div class="pt"><em>3</em><div><h3>Nộp hồ sơ PCCC</h3><p>Chọn tệp, ghi chú, gửi cho nhà thầu PCCC.</p></div></div></div></div>
+  </div></section>
+<section class="feat " id="f-site" data-feat>
+  <div class="wrap">
+    <div class="head"><div><div class="eyebrow">Ngay tại công trường</div><h2>Cầm iPad đi kiểm tra: chụp ảnh, ghi tóm tắt, nộp báo cáo hiện trường.</h2><p>Báo cáo hằng ngày bắt buộc đủ 15 ảnh; ảnh được nén và tải lên ngay khi chọn.</p></div>
+      <div class="sw" role="group" aria-label="Thiết bị"><button type="button" aria-pressed="true" data-d="web">Laptop</button><button type="button" aria-pressed="false" data-d="ipad">iPad</button></div></div>
+    <div class="stage"><div>
+      <div class="dev on" data-d="web"><div class="shell"><div class="bar"><i></i><i></i><i></i><span>retail-pm</span></div><video muted loop playsinline preload="none" poster="clips/web-site.jpg" data-src="clips/web-site.mp4"></video></div></div>
+      <div class="dev" data-d="ipad"><div class="ipad"><video muted loop playsinline preload="none" poster="clips/ipad-site.jpg" data-src="clips/ipad-site.mp4"></video></div></div>
+    </div><div class="side"><div class="pt"><em>1</em><div><h3>Chọn hoặc chụp ảnh</h3><p>Đủ 15 ảnh thì mới nộp được.</p></div></div><div class="pt"><em>2</em><div><h3>Tóm tắt tiến độ trong ngày</h3><p>Công việc, nhân công, mức rủi ro.</p></div></div><div class="pt"><em>3</em><div><h3>Quá 21:00 chưa nộp thì nhắc</h3><p>TC, TC Leader, PM và GM nhận cảnh báo.</p></div></div></div></div>
+  </div></section>
+
+<script>
+// Chuyển thiết bị theo từng khối; chỉ phát clip đang hiện + đang trong màn hình (tiết kiệm CPU, tôn trọng giảm chuyển động)
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+document.querySelectorAll("[data-feat]").forEach(sec=>{
+  const set=d=>{
+    sec.querySelectorAll(".sw button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.d===d)));
+    sec.querySelectorAll(".dev").forEach(el=>el.classList.toggle("on",el.dataset.d===d));
+    sec.querySelectorAll(".dev-still").forEach(el=>el.closest("div").parentElement.style.display=el.dataset.d===d?"":"none");
+    sync();
+  };
+  sec.querySelectorAll(".sw button").forEach(b=>b.onclick=()=>set(b.dataset.d));
+});
+const vis=new Set();
+const io=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?vis.add(e.target):vis.delete(e.target));sync()},{threshold:.35});
+document.querySelectorAll("video").forEach(v=>io.observe(v));
+function sync(){
+  document.querySelectorAll("video").forEach(v=>{
+    const show=v.closest(".dev.on")&&vis.has(v)&&!reduce;
+    if(show){ if(!v.src) v.src=v.dataset.src; v.play().catch(()=>{}); } else { v.pause(); }
+  });
+}
+</script>
+</body>
+</html>
